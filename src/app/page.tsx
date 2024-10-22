@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {Button} from "@/components/ui/button";
-import {Sun, Droplets, Wind, Shirt, Search, TrendingUp} from "lucide-react";
+import {Sun, Cloud, Droplets, Wind, Sparkles, Search, TrendingUp, UserIcon} from "lucide-react";
 import {
   LineChart,
   Line,
@@ -51,163 +51,107 @@ export default function WeatherFashionMain() {
     {name: "7월", casual: 3490, formal: 4300, sporty: 2100},
   ];
 
-  const fashionCategories = [
-    {name: "상의", count: 1250},
-    {name: "하의", count: 980},
-    {name: "신발", count: 750},
-    {name: "액세서리", count: 620},
+  const popularItems = [
+    {name: "오버사이즈 티셔츠", category: "상의"},
+    {name: "와이드 데님", category: "하의"},
+    {name: "버킷햇", category: "액세서리"},
+    {name: "크롭 카디건", category: "아우터"},
   ];
 
-  const popularSearches = ["여름 원피스", "린넨 셔츠", "샌들", "선글라스", "스트로 햇"];
-
   const beautyTrends = [
-    {name: "자외선 차단제", trend: "up"},
-    {name: "틴티드 모이스처라이저", trend: "up"},
-    {name: "워터프루프 마스카라", trend: "stable"},
-    {name: "립 틴트", trend: "up"},
-    {name: "페이셜 미스트", trend: "up"},
+    {name: "글로우 메이크업", description: "자연스러운 광채 피부"},
+    {name: "볼드 아이라이너", description: "과감한 아이 메이크업"},
+    {name: "누드 립", description: "내추럴한 입술 연출"},
+  ];
+
+  const recentSearches = [
+    "여름 원피스",
+    "남자 린넨 셔츠",
+    "데일리 스니커즈",
+    "플로럴 스커트",
+    "썸머 헤어스타일",
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
-      <header className="py-12 px-4 md:px-8 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Wearther</h1>
-        <p className="text-xl md:text-2xl mb-8 animate-fade-in-delay">
-          당신만의 완벽한 룩, 오늘의 날씨에 맞춰 제안해드립니다
-        </p>
-        <Button
-          size="lg"
-          className="bg-white text-blue-600 hover:bg-blue-100 transition-colors duration-300"
-        >
-          맞춤 스타일 찾기
-        </Button>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <header className="text-center mb-12 py-8 bg-white bg-opacity-50 rounded-lg shadow-lg">
+          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-4">날씨의 옷장</h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-6">
+            당신의 스타일을 날씨에 맞춰 완성하세요
+          </p>
+          <div className="flex justify-center items-center space-x-4">
+            <Sparkles className="w-6 h-6 text-yellow-500" />
+            <p className="text-lg font-medium">오늘의 날씨에 맞는 완벽한 스타일링을 제안합니다</p>
+            <Sparkles className="w-6 h-6 text-yellow-500" />
+          </div>
+        </header>
 
-      <main className="max-w-7xl mx-auto py-8 px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <Card className="md:col-span-2 lg:col-span-2 row-span-2">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Sun className="mr-2" /> 오늘의 날씨와 추천 스타일
+                <Sun className="w-6 h-6 text-yellow-500 mr-2" />
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 text-transparent bg-clip-text">
+                  오늘의 날씨와 추천 스타일
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col md:flex-row items-center justify-between mb-6">
-                <div className="text-center md:text-left mb-4 md:mb-0">
-                  <p className="text-4xl font-bold">{weatherData.temperature}°C</p>
-                  <p className="text-xl text-muted-foreground capitalize">
-                    {weatherData.condition}
-                  </p>
-                  <div className="flex justify-center md:justify-start mt-2">
-                    <span className="flex items-center mr-4">
-                      <Droplets className="w-4 h-4 text-blue-500 mr-1" />
-                      {weatherData.humidity}%
-                    </span>
-                    <span className="flex items-center">
-                      <Wind className="w-4 h-4 text-gray-500 mr-1" />
-                      {weatherData.windSpeed}m/s
-                    </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-secondary/50 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold mb-2">현재 날씨</h3>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-4xl font-bold">{weatherData.temperature}°C</p>
+                      <p className="text-xl text-muted-foreground capitalize">
+                        {weatherData.condition}
+                      </p>
+                    </div>
+                    <Sun className="w-16 h-16 text-yellow-500" />
+                  </div>
+                  <div className="flex justify-between mt-4">
+                    <div className="flex items-center">
+                      <Droplets className="w-5 h-5 text-blue-500 mr-1" />
+                      <span>{weatherData.humidity}%</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Wind className="w-5 h-5 text-gray-500 mr-1" />
+                      <span>{weatherData.windSpeed}m/s</span>
+                    </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {recommendedClothes.map((item) => (
-                    <div key={item.id} className="bg-secondary rounded-lg p-2 text-center">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-full h-24 object-cover rounded-md mb-2"
-                      />
-                      <p className="text-sm font-medium">{item.name}</p>
-                    </div>
-                  ))}
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">추천 의상</h3>
+                  <div className="space-y-4">
+                    {recommendedClothes.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex items-center space-x-4 bg-secondary rounded-lg p-2"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-cover rounded-md"
+                        />
+                        <p className="text-sm font-medium flex-grow">{item.name}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="md:col-span-1 lg:col-span-2 row-span-2">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Shirt className="mr-2" /> 패션 카테고리
+                <UserIcon className="w-6 h-6 text-indigo-500 mr-2" />
+                맞춤 추천을 위한 정보
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
-                {fashionCategories.map((category) => (
-                  <li key={category.name} className="flex justify-between items-center">
-                    <span>{category.name}</span>
-                    <span className="bg-secondary px-2 py-1 rounded-full text-sm">
-                      {category.count}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Search className="mr-2" /> 인기 검색어
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {popularSearches.map((search, index) => (
-                  <span key={index} className="bg-secondary px-3 py-1 rounded-full text-sm">
-                    {search}
-                  </span>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="mr-2" /> 뷰티 트렌드
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {beautyTrends.map((item, index) => (
-                  <li key={index} className="flex justify-between items-center">
-                    <span>{item.name}</span>
-                    <span className={`${item.trend === "up" ? "text-green-500" : "text-gray-500"}`}>
-                      {item.trend === "up" ? "↑" : "→"}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="md:col-span-3 lg:col-span-4">
-            <CardHeader>
-              <CardTitle>스타일 트렌드</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={trendData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="casual" stroke="#8884d8" activeDot={{r: 8}} />
-                  <Line type="monotone" dataKey="formal" stroke="#82ca9d" />
-                  <Line type="monotone" dataKey="sporty" stroke="#ffc658" />
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <Card className="md:col-span-3 lg:col-span-4">
-            <CardHeader>
-              <CardTitle>맞춤 추천을 위한 정보</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <form className="space-y-4">
                 <div className="space-y-2">
                   <label htmlFor="age" className="text-sm font-medium text-muted-foreground">
                     연령대
@@ -255,14 +199,96 @@ export default function WeatherFashionMain() {
                     </SelectContent>
                   </Select>
                 </div>
+                <Button type="submit" className="w-full">
+                  맞춤 추천 받기
+                </Button>
               </form>
-              <Button type="submit" className="w-full mt-4">
-                맞춤 추천 받기
-              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="md:col-span-3 lg:col-span-4">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
+                스타일 트렌드
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={trendData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="casual" stroke="#8884d8" activeDot={{r: 8}} />
+                  <Line type="monotone" dataKey="formal" stroke="#82ca9d" />
+                  <Line type="monotone" dataKey="sporty" stroke="#ffc658" />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
+                인기 패션 아이템
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {popularItems.map((item, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span>{item.name}</span>
+                    <span className="text-sm text-muted-foreground">{item.category}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
+                뷰티 트렌드
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {beautyTrends.map((trend, index) => (
+                  <li key={index}>
+                    <p className="font-medium">{trend.name}</p>
+                    <p className="text-sm text-muted-foreground">{trend.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Search className="w-6 h-6 text-green-500 mr-2" />
+                최근 검색어
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {recentSearches.map((search, index) => (
+                  <span
+                    key={index}
+                    className="bg-secondary text-secondary-foreground px-2 py-1 rounded-full text-sm"
+                  >
+                    {search}
+                  </span>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
