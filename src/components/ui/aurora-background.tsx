@@ -1,6 +1,11 @@
 "use client";
-import {cn} from "@/lib/utils";
 import React, {ReactNode} from "react";
+
+// utils
+import {cn} from "@/lib/utils";
+
+// components
+import Header from "@/components/layout/Header";
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode;
@@ -14,7 +19,7 @@ export const AuroraBackground = ({
   ...props
 }: AuroraBackgroundProps) => {
   return (
-    <main>
+    <div id="content">
       <div
         className={cn(
           "relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900  text-slate-950 transition-bg",
@@ -22,7 +27,9 @@ export const AuroraBackground = ({
         )}
         {...props}
       >
-        <div className="absolute inset-0 overflow-hidden">
+        <Header />
+        <main className="relative z-[1] max-w-7xl mx-auto px-4 md:px-12">{children}</main>
+        <div className="fixed inset-0 overflow-hidden" aria-hidden>
           <div
             className={cn(
               `
@@ -46,8 +53,7 @@ export const AuroraBackground = ({
             )}
           ></div>
         </div>
-        {children}
       </div>
-    </main>
+    </div>
   );
 };

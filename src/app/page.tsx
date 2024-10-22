@@ -1,24 +1,10 @@
-"use client";
-import {useTheme} from "next-themes";
+import React from "react";
 
 // components
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {Toggle} from "@/components/ui/toggle";
 import MainHeroSection from "./_components/MainHeroSection";
-import {AuroraBackground} from "@/components/ui/aurora-background";
-
-// charts
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import StyleTrendChart from "@/components/blocks/StyleTrendChart";
+import MainTodayWeatherFasion from "./_components/TodayWeatherFasion";
 
 // icon
 import {
@@ -34,8 +20,6 @@ import {
 } from "lucide-react";
 
 export default function WeatherFashionMain() {
-  const {theme, setTheme} = useTheme();
-
   // 실제 앱에서는 이 부분을 API 호출로 대체해야 합니다
   const weatherData = {
     temperature: 22,
@@ -45,12 +29,12 @@ export default function WeatherFashionMain() {
   };
 
   const recommendedClothes = [
-    {id: 1, name: "가벼운 셔츠", image: "/placeholder.svg?height=200&width=200"},
-    {id: 2, name: "린넨 바지", image: "/placeholder.svg?height=200&width=200"},
-    {id: 3, name: "샌들", image: "/placeholder.svg?height=200&width=200"},
-    {id: 4, name: "가벼운 셔츠", image: "/placeholder.svg?height=200&width=200"},
-    {id: 5, name: "린넨 바지", image: "/placeholder.svg?height=200&width=200"},
-    {id: 6, name: "샌들", image: "/placeholder.svg?height=200&width=200"},
+    {id: 1, name: "가벼운 셔츠", image: "/temp/img_1.png"},
+    {id: 2, name: "린넨 바지", image: "/temp/img_2.png"},
+    {id: 3, name: "샌들", image: "/temp/img_3.png"},
+    {id: 4, name: "가벼운 셔츠", image: "/temp/img_4.png"},
+    {id: 5, name: "린넨 바지", image: "/temp/img_5.png"},
+    {id: 6, name: "샌들", image: "/temp/img_6.png"},
   ];
 
   const trendData = [
@@ -91,20 +75,7 @@ export default function WeatherFashionMain() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <header className="flex justify-between items-center mb-8 py-4 px-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-primary">Wearther</h1>
-        <div className="flex items-center space-x-4">
-          <Toggle
-            aria-label="Toggle dark mode"
-            pressed={theme === "dark"}
-            onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {theme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-          </Toggle>
-          <Button variant="outline">로그인</Button>
-        </div>
-      </header>
+    <>
       <MainHeroSection />
       <div className="grid grid-cols-1 gap-6">
         <Card className="col-span-1">
@@ -112,52 +83,15 @@ export default function WeatherFashionMain() {
             <CardTitle className="flex items-center">
               <Sun className="w-6 h-6 text-yellow-500 mr-2" />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 text-transparent bg-clip-text">
-                오늘의 날씨와 추천 스타일
+                현재 날씨에 맞는 추천 스타일을 알려 드릴게요.
               </span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-secondary/50 rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">현재 날씨</h3>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-4xl font-bold">{weatherData.temperature}°C</p>
-                    <p className="text-xl text-muted-foreground capitalize">
-                      {weatherData.condition}
-                    </p>
-                  </div>
-                  <Sun className="w-16 h-16 text-yellow-500" />
-                </div>
-                <div className="flex justify-between mt-4">
-                  <div className="flex items-center">
-                    <Droplets className="w-5 h-5 text-blue-500 mr-1" />
-                    <span>강수 확률 {weatherData.humidity}%</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Wind className="w-5 h-5 text-gray-500 mr-1" />
-                    <span>{weatherData.windSpeed}m/s</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flex flex-wrap gap-3 space-y-4">
-                  {recommendedClothes.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center space-x-4 bg-secondary rounded-lg p-2"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-md"
-                      />
-                      <p className="text-sm font-medium flex-grow">{item.name}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <MainTodayWeatherFasion
+              weatherData={weatherData}
+              recommendedClothes={recommendedClothes}
+            />
           </CardContent>
         </Card>
 
@@ -169,18 +103,7 @@ export default function WeatherFashionMain() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={trendData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="casual" stroke="#8884d8" activeDot={{r: 8}} />
-                <Line type="monotone" dataKey="formal" stroke="#82ca9d" />
-                <Line type="monotone" dataKey="sporty" stroke="#ffc658" />
-              </LineChart>
-            </ResponsiveContainer>
+            <StyleTrendChart trendData={trendData} />
           </CardContent>
         </Card>
 
@@ -245,6 +168,6 @@ export default function WeatherFashionMain() {
           </Card>
         </div>
       </div>
-    </div>
+    </>
   );
 }
