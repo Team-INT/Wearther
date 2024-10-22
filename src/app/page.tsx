@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {
   Select,
@@ -10,7 +10,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {Button} from "@/components/ui/button";
-import {Sun, Cloud, Droplets, Wind, Sparkles, Search, TrendingUp, UserIcon} from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import {Toggle} from "@/components/ui/toggle";
+import {
+  Sun,
+  Moon,
+  Cloud,
+  Droplets,
+  Wind,
+  Sparkles,
+  Search,
+  TrendingUp,
+  UserIcon,
+} from "lucide-react";
 import {
   LineChart,
   Line,
@@ -21,11 +46,95 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import {useTheme} from "next-themes";
 
-export default function WeatherFashionMain() {
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addListener(listener);
+    return () => media.removeListener(listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
+const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [style, setStyle] = useState("");
+
+  return (
+    <form
+      className="space-y-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+    >
+      <div className="space-y-2">
+        <label htmlFor="age" className="text-sm font-medium text-muted-foreground">
+          연령대
+        </label>
+        <Select value={age} onValueChange={setAge}>
+          <SelectTrigger id="age">
+            <SelectValue placeholder="선택해주세요" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="10s">10대</SelectItem>
+            <SelectItem value="20s">20대</SelectItem>
+            <SelectItem value="30s">30대</SelectItem>
+            <SelectItem value="40s">40대 이상</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="space-y-2">
+        <label htmlFor="gender" className="text-sm font-medium text-muted-foreground">
+          성별
+        </label>
+        <Select value={gender} onValueChange={setGender}>
+          <SelectTrigger id="gender">
+            <SelectValue placeholder="선택해주세요" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="male">남성</SelectItem>
+            <SelectItem value="female">여성</SelectItem>
+            <SelectItem value="other">기타</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="space-y-2">
+        <label htmlFor="style" className="text-sm font-medium text-muted-foreground">
+          선호 스타일
+        </label>
+        <Select value={style} onValueChange={setStyle}>
+          <SelectTrigger id="style">
+            <SelectValue placeholder="선택해주세요" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="casual">캐주얼</SelectItem>
+            <SelectItem value="formal">포멀</SelectItem>
+            <SelectItem value="sporty">스포티</SelectItem>
+            <SelectItem value="vintage">빈티지</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <Button type="submit" className="w-full">
+        맞춤 추천 받기
+      </Button>
+    </form>
+  );
+};
+
+export default function WeatherFashionMain() {
+  const [open, setOpen] = useState(false);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const {theme, setTheme} = useTheme();
 
   // 실제 앱에서는 이 부분을 API 호출로 대체해야 합니다
   const weatherData = {
@@ -39,6 +148,9 @@ export default function WeatherFashionMain() {
     {id: 1, name: "가벼운 셔츠", image: "/placeholder.svg?height=200&width=200"},
     {id: 2, name: "린넨 바지", image: "/placeholder.svg?height=200&width=200"},
     {id: 3, name: "샌들", image: "/placeholder.svg?height=200&width=200"},
+    {id: 4, name: "가벼운 셔츠", image: "/placeholder.svg?height=200&width=200"},
+    {id: 5, name: "린넨 바지", image: "/placeholder.svg?height=200&width=200"},
+    {id: 6, name: "샌들", image: "/placeholder.svg?height=200&width=200"},
   ];
 
   const trendData = [
@@ -70,25 +182,74 @@ export default function WeatherFashionMain() {
     "데일리 스니커즈",
     "플로럴 스커트",
     "썸머 헤어스타일",
+    "썸머 헤어스타일",
+    "썸머 헤어스타일",
+    "썸머 헤어스타일",
+    "썸머 헤어스타일",
+    "데일리 스니커즈",
+    "플로럴 스커트",
   ];
 
+  const handleCustomizationSubmit = () => {
+    setOpen(false);
+    // 여기에 맞춤 추천 로직을 추가할 수 있습니다.
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800 p-4 md:p-12">
       <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-12 py-8 bg-white bg-opacity-50 rounded-lg shadow-lg">
-          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-4">날씨의 옷장</h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-6">
-            당신의 스타일을 날씨에 맞춰 완성하세요
-          </p>
-          <div className="flex justify-center items-center space-x-4">
-            <Sparkles className="w-6 h-6 text-yellow-500" />
-            <p className="text-lg font-medium">오늘의 날씨에 맞는 완벽한 스타일링을 제안합니다</p>
-            <Sparkles className="w-6 h-6 text-yellow-500" />
+        <header className="flex justify-between items-center mb-8 py-4 px-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-primary">Wearther</h1>
+          <div className="flex items-center space-x-4">
+            <Toggle
+              aria-label="Toggle dark mode"
+              pressed={theme === "dark"}
+              onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </Toggle>
+            <Button variant="outline">로그인</Button>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <Card className="md:col-span-2 lg:col-span-2 row-span-2">
+        <div className="text-center mb-12 pb-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+            당신의 스타일을 날씨에 맞춰 완성하세요
+          </h2>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-6">
+            오늘의 날씨에 맞는 완벽한 스타일링을 제안합니다
+          </p>
+          {isDesktop ? (
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline">맞춤 추천 받기</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>맞춤 추천을 위한 정보</DialogTitle>
+                </DialogHeader>
+                <CustomizationForm onSubmit={handleCustomizationSubmit} />
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Drawer open={open} onOpenChange={setOpen}>
+              <DrawerTrigger asChild>
+                <Button variant="outline">맞춤 추천 받기</Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>맞춤 추천을 위한 정보</DrawerTitle>
+                </DrawerHeader>
+                <div className="px-4 py-2">
+                  <CustomizationForm onSubmit={handleCustomizationSubmit} />
+                </div>
+              </DrawerContent>
+            </Drawer>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-6">
+          <Card className="col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Sun className="w-6 h-6 text-yellow-500 mr-2" />
@@ -113,7 +274,7 @@ export default function WeatherFashionMain() {
                   <div className="flex justify-between mt-4">
                     <div className="flex items-center">
                       <Droplets className="w-5 h-5 text-blue-500 mr-1" />
-                      <span>{weatherData.humidity}%</span>
+                      <span>강수 확률 {weatherData.humidity}%</span>
                     </div>
                     <div className="flex items-center">
                       <Wind className="w-5 h-5 text-gray-500 mr-1" />
@@ -122,8 +283,7 @@ export default function WeatherFashionMain() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">추천 의상</h3>
-                  <div className="space-y-4">
+                  <div className="flex flex-wrap gap-3 space-y-4">
                     {recommendedClothes.map((item) => (
                       <div
                         key={item.id}
@@ -143,70 +303,7 @@ export default function WeatherFashionMain() {
             </CardContent>
           </Card>
 
-          <Card className="md:col-span-1 lg:col-span-2 row-span-2">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <UserIcon className="w-6 h-6 text-indigo-500 mr-2" />
-                맞춤 추천을 위한 정보
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form className="space-y-4">
-                <div className="space-y-2">
-                  <label htmlFor="age" className="text-sm font-medium text-muted-foreground">
-                    연령대
-                  </label>
-                  <Select value={age} onValueChange={setAge}>
-                    <SelectTrigger id="age">
-                      <SelectValue placeholder="선택해주세요" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10s">10대</SelectItem>
-                      <SelectItem value="20s">20대</SelectItem>
-                      <SelectItem value="30s">30대</SelectItem>
-                      <SelectItem value="40s">40대 이상</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="gender" className="text-sm font-medium text-muted-foreground">
-                    성별
-                  </label>
-                  <Select value={gender} onValueChange={setGender}>
-                    <SelectTrigger id="gender">
-                      <SelectValue placeholder="선택해주세요" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="male">남성</SelectItem>
-                      <SelectItem value="female">여성</SelectItem>
-                      <SelectItem value="other">기타</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="style" className="text-sm font-medium text-muted-foreground">
-                    선호 스타일
-                  </label>
-                  <Select value={style} onValueChange={setStyle}>
-                    <SelectTrigger id="style">
-                      <SelectValue placeholder="선택해주세요" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="casual">캐주얼</SelectItem>
-                      <SelectItem value="formal">포멀</SelectItem>
-                      <SelectItem value="sporty">스포티</SelectItem>
-                      <SelectItem value="vintage">빈티지</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <Button type="submit" className="w-full">
-                  맞춤 추천 받기
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-
-          <Card className="md:col-span-3 lg:col-span-4">
+          <Card className="col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
@@ -229,64 +326,66 @@ export default function WeatherFashionMain() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
-                인기 패션 아이템
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {popularItems.map((item, index) => (
-                  <li key={index} className="flex justify-between items-center">
-                    <span>{item.name}</span>
-                    <span className="text-sm text-muted-foreground">{item.category}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
+                  인기 패션 아이템
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {popularItems.map((item, index) => (
+                    <li key={index} className="flex justify-between items-center">
+                      <span>{item.name}</span>
+                      <span className="text-sm text-muted-foreground">{item.category}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
-                뷰티 트렌드
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {beautyTrends.map((trend, index) => (
-                  <li key={index}>
-                    <p className="font-medium">{trend.name}</p>
-                    <p className="text-sm text-muted-foreground">{trend.description}</p>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
+                  뷰티 트렌드
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {beautyTrends.map((trend, index) => (
+                    <li key={index}>
+                      <p className="font-medium">{trend.name}</p>
+                      <p className="text-sm text-muted-foreground">{trend.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Search className="w-6 h-6 text-green-500 mr-2" />
-                최근 검색어
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {recentSearches.map((search, index) => (
-                  <span
-                    key={index}
-                    className="bg-secondary text-secondary-foreground px-2 py-1 rounded-full text-sm"
-                  >
-                    {search}
-                  </span>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Search className="w-6 h-6 text-green-500 mr-2" />
+                  최근 검색어
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {recentSearches.map((search, index) => (
+                    <span
+                      key={index}
+                      className="bg-secondary text-secondary-foreground px-2 py-1 rounded-full text-sm"
+                    >
+                      {search}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
