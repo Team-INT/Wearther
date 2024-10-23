@@ -9,9 +9,6 @@ export const recommendedClothes = [
   {id: 1, name: "가벼운 셔츠", image: "/temp/img_1.png"},
   {id: 2, name: "린넨 바지", image: "/temp/img_2.png"},
   {id: 3, name: "샌들", image: "/temp/img_3.png"},
-  {id: 4, name: "가벼운 셔츠", image: "/temp/img_4.png"},
-  {id: 5, name: "린넨 바지", image: "/temp/img_5.png"},
-  {id: 6, name: "샌들", image: "/temp/img_6.png"},
 ];
 
 export const trendData = [

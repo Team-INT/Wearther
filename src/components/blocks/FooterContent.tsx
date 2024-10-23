@@ -25,8 +25,8 @@ const Section2 = () => {
 
 const Nav = () => {
   return (
-    <div className="flex shrink-0 gap-20">
-      <dl className="flex flex-col gap-2">
+    <div className="flex-col md:flex shrink-0 gap-8 md:gap-20">
+      <dl className="flex md:flex-col gap-2">
         <dt className="mb-2 uppercase text-[#ffffff80]">Products</dt>
         <dd>
           <Link href="/products/recommend">Recommend</Link>
@@ -39,7 +39,7 @@ const Nav = () => {
         </dd>
         <dd>Coming Soon</dd>
       </dl>
-      <dl className="flex flex-col gap-2">
+      <dl className="flex md:flex-col gap-2">
         <dt className="mb-2 uppercase text-[#ffffff80]">Resources</dt>
         <dd>
           <Link href="/resources/pricing">Pricing</Link>
@@ -48,7 +48,7 @@ const Nav = () => {
           <Link href="/resources/notice">Notice</Link>
         </dd>
       </dl>
-      <dl className="flex flex-col gap-2">
+      <dl className="flex md:flex-col gap-2">
         <dt className="mb-2 uppercase text-[#ffffff80]">Company</dt>
         <dd>
           <Link href="/company/about">About</Link>
@@ -63,7 +63,7 @@ const Nav = () => {
           <Link href="/company/terms">이용 약관</Link>
         </dd>
       </dl>
-      <dl className="flex flex-col gap-2">
+      <dl className="flex md:flex-col gap-2">
         <dt className="mb-2 uppercase text-[#ffffff80]">Social</dt>
         <dd>
           <Link href="https://github.com" target="_blank">
