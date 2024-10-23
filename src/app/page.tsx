@@ -29,9 +29,6 @@ export default function WeatherFashionMain() {
   return (
     <>
       <MainHeroSection />
-      <Button asChild>
-        <Link href="/recommend">맞춤 추천 받기</Link>
-      </Button>
       <div className="grid grid-cols-1 gap-6">
         <Card className="col-span-1">
           <CardHeader>

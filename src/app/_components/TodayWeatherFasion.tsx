@@ -30,7 +30,7 @@ export default function MainTodayWeatherFasion({weatherData, recommendedClothes}
         {recommendedClothes.map((item) => (
           <div key={item.id} className="flex items-center space-x-4 bg-secondary rounded-lg p-2">
             <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
-            <p className="text-sm font-medium flex-grow">{item.name}</p>
+            <p className="sr-only">{item.name}</p>
           </div>
         ))}
       </div>
