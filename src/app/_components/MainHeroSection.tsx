@@ -127,7 +127,7 @@ export default function MainHeroSection() {
       <p className="text-xl md:text-2xl text-muted-foreground mb-6">
         날씨에 맞는 패션이 하입한 스타일의 완성입니다.
       </p>
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-6">
         {isDesktop ? (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>

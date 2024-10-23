@@ -4,15 +4,16 @@ import React, {ReactNode} from "react";
 // utils
 import {cn} from "@/lib/utils";
 
-// components
+// layouts
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode;
   showRadialGradient?: boolean;
 }
 
-export const AuroraBackground = ({
+export const AuroraBackgroundProvider = ({
   className,
   children,
   showRadialGradient = true,
@@ -28,7 +29,9 @@ export const AuroraBackground = ({
         {...props}
       >
         <Header />
-        <main className="relative z-[1] max-w-7xl mx-auto px-4 md:px-12">{children}</main>
+        <main className="relative z-[1] w-full max-w-7xl mt-8 md:mt-12 mb-16 md:mb-24 mx-auto px-4 md:px-12">
+          {children}
+        </main>
         <div className="fixed inset-0 overflow-hidden" aria-hidden>
           <div
             className={cn(
@@ -53,6 +56,7 @@ export const AuroraBackground = ({
             )}
           ></div>
         </div>
+        <Footer />
       </div>
     </div>
   );

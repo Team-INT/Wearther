@@ -7,6 +7,7 @@ import {useTheme} from "next-themes";
 // components
 import {Toggle} from "@/components/ui/toggle";
 import {Button} from "@/components/ui/button";
+import ThemeToogle from "../ui/ThemeToogle";
 
 // icons
 import {Sun, Moon} from "lucide-react";
@@ -14,7 +15,7 @@ import {Sun, Moon} from "lucide-react";
 export default function Header() {
   const {theme, setTheme} = useTheme();
   return (
-    <header className="relative z-10 flex justify-between items-center w-full mb-8 py-4 px-6">
+    <header className="relative z-10 flex justify-between items-center w-full py-4 px-6">
       <h1 className="text-2xl md:text-3xl font-bold text-primary">
         <Link href="/">Wearther</Link>
       </h1>
@@ -26,13 +27,7 @@ export default function Header() {
         </ul>
       </nav>
       <div className="flex items-center space-x-4">
-        <Toggle
-          aria-label="Toggle dark mode"
-          pressed={theme === "dark"}
-          onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-        </Toggle>
+        <ThemeToogle />
         <Button variant="outline">로그인</Button>
       </div>
     </header>
