@@ -14,7 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function StyleTrendChart({trendData}) {
+export default function StyleTrendChart({trendData}: {trendData: any}) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={trendData}>

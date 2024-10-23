@@ -3,7 +3,15 @@ import React from "react";
 // icons
 import {Sun, Droplets, Wind} from "lucide-react";
 
-export default function MainTodayWeatherFasion({weatherData, recommendedClothes}) {
+interface MainTodayWeatherFasion {
+  weatherData: any;
+  recommendedClothes: any;
+}
+
+export default function MainTodayWeatherFasion({
+  weatherData,
+  recommendedClothes,
+}: MainTodayWeatherFasion) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div className="bg-secondary/50 rounded-lg p-4">
@@ -27,7 +35,7 @@ export default function MainTodayWeatherFasion({weatherData, recommendedClothes}
         </div>
       </div>
       <div className="flex flex-wrap gap-3 ">
-        {recommendedClothes.map((item) => (
+        {recommendedClothes.map((item: any) => (
           <div key={item.id} className="flex items-center space-x-4 bg-secondary rounded-lg p-2">
             <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
             <p className="sr-only">{item.name}</p>
