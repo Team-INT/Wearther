@@ -8,6 +8,7 @@ import "./globals.css";
 
 // context
 import {AuroraBackgroundProvider} from "@/components/context/AuroraBackgroundProvider";
+import SmoothScrollProvider from "@/components/context/SmoothScrollProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,8 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${noto_sans_kr.className} antialiased`}>
+        <SmoothScrollProvider />
         <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
       </body>
     </html>

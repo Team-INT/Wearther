@@ -25,6 +25,7 @@ import {
   popularItems,
   beautyTrends,
 } from "@/mocks/mockingData";
+import Link from "next/link";
 
 export default function WeatherFashionMain() {
   return (
@@ -53,6 +54,7 @@ export default function WeatherFashionMain() {
             <CardTitle className="flex items-center">
               <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
               스타일 트렌드
+              <Link href="">더보기</Link>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -66,6 +68,7 @@ export default function WeatherFashionMain() {
               <CardTitle className="flex items-center">
                 <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
                 인기 패션 아이템
+                <Link href="">더보기</Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -78,6 +81,7 @@ export default function WeatherFashionMain() {
               <CardTitle className="flex items-center">
                 <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
                 뷰티 트렌드
+                <Link href="">더보기</Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -90,6 +94,7 @@ export default function WeatherFashionMain() {
               <CardTitle className="flex items-center">
                 <Search className="w-6 h-6 text-green-500 mr-2" />
                 최근 검색어
+                <Link href="">더보기</Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
