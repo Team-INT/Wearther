@@ -14,8 +14,8 @@ export default function FooterContent() {
 const Section2 = () => {
   return (
     <div className="flex justify-between items-end">
-      <h1 className="text-[14vw] leading-[0.8] mt-10">Wearther</h1>
-      <div className="">
+      <h1 className="text-[14vw] leading-[0.8] mt-10 font-bold text-foreground">Wearther</h1>
+      <div className="text-foreground">
         <address className="not-italic">newabekar@naver.com</address>
         <small className="font-size-[100%]">© 2024 Cho Kyung Moon. All Rights Reserved.</small>
       </div>
@@ -25,7 +25,7 @@ const Section2 = () => {
 
 const Nav = () => {
   return (
-    <div className="flex-col md:flex shrink-0 gap-8 md:gap-20">
+    <div className="flex flex-col md:flex-row shrink-0 gap-8 md:gap-20">
       <dl className="flex md:flex-col gap-2">
         <dt className="mb-2 uppercase text-[#ffffff80]">Products</dt>
         <dd>
