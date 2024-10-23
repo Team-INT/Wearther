@@ -1,4 +1,5 @@
 "use client";
+
 import {useState, useEffect} from "react";
 
 // components
@@ -6,6 +7,7 @@ import {Button} from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,6 +18,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
+  DrawerDescription,
 } from "@/components/ui/drawer";
 import {
   Select,
@@ -119,33 +122,33 @@ export default function MainHeroSection() {
 
   return (
     <section className="text-center mb-12 pb-8">
-      <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-        당신의 스타일을 날씨에 맞춰 완성하세요
-      </h2>
+      <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">날씨, 스타일, 성공적.</h2>
       <p className="text-xl md:text-2xl text-muted-foreground mb-6">
-        오늘의 날씨에 맞는 완벽한 스타일링을 제안합니다
+        날씨에 맞는 패션이 하입한 스타일의 완성입니다.
       </p>
       {isDesktop ? (
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">맞춤 추천 받기</Button>
+            <Button variant="outline">맞춤 트랜드 보기</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>맞춤 추천을 위한 정보</DialogTitle>
+              <DialogTitle>맞춤 트랜드를 위한 정보</DialogTitle>
             </DialogHeader>
+            <DialogDescription>로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.</DialogDescription>
             <CustomizationForm onSubmit={handleCustomizationSubmit} />
           </DialogContent>
         </Dialog>
       ) : (
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button variant="outline">맞춤 추천 받기</Button>
+            <Button variant="outline">맞춤 트랜드 보기</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>맞춤 추천을 위한 정보</DrawerTitle>
+              <DrawerTitle>맞춤 트랜드를 위한 정보</DrawerTitle>
             </DrawerHeader>
+            <DrawerDescription>로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.</DrawerDescription>
             <div className="px-4 py-2">
               <CustomizationForm onSubmit={handleCustomizationSubmit} />
             </div>

@@ -68,6 +68,10 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      backgroundImage: {
+        "main-gradient": "linear-gradient(to right, #2563eb, #7c3aed)",
+        "main-gradient-dark": "linear-gradient(to right, #60a5fa, #a78bfa)",
+      },
       keyframes: {
         "accordion-down": {
           from: {
@@ -101,7 +105,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors, createTextMainGradientPlugin()],
 };
 export default config;
 
@@ -114,4 +118,21 @@ function addVariablesForColors({addBase, theme}: any) {
   addBase({
     ":root": newVars,
   });
+}
+
+function createTextMainGradientPlugin() {
+  return function (helpers: {addUtilities: any}) {
+    const {addUtilities} = helpers;
+    addUtilities({
+      ".text-main-gradient": {
+        "background-image": "var(--tw-bg-gradient, linear-gradient(to right, #2563eb, #7c3aed))",
+        color: "transparent",
+        "background-clip": "text",
+      },
+      ".dark .text-main-gradient": {
+        "background-image":
+          "var(--tw-bg-gradient-dark, linear-gradient(to right, #60a5fa, #a78bfa))",
+      },
+    });
+  };
 }
