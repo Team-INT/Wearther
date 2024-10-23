@@ -1,8 +1,7 @@
-'use client';
-import { useScreenSize } from '@/hooks/useScreenResize';
+"use client";
+import {useScreenSize} from "@/lib/hooks/useScreenSize";
 
-export function ClientProvider({ children }: { children: React.ReactNode }) {
+export function ClientProvider({children}: {children: React.ReactNode}) {
   useScreenSize();
-  // 필요시 추가 예정
   return <>{children}</>;
 }

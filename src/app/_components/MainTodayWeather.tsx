@@ -3,7 +3,11 @@ import React from "react";
 // icons
 import {Sun, Droplets, Wind} from "lucide-react";
 
-export default function MainTodayWeather({weatherData}) {
+interface MainTodayWeatherProps {
+  weatherData: any;
+}
+
+export default function MainTodayWeather({weatherData}: MainTodayWeatherProps) {
   return (
     <div className="bg-secondary/50 rounded-lg p-4">
       <div className="flex items-center justify-between">

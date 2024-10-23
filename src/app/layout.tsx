@@ -10,6 +10,7 @@ import "./globals.css";
 import {AuroraBackgroundProvider} from "@/components/context/AuroraBackgroundProvider";
 import SmoothScrollProvider from "@/components/context/SmoothScrollProvider";
 import {ThemeProvider} from "@/components/context/theme-provider";
+import {ClientProvider} from "@/components/context/ClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,8 +35,10 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${noto_sans_kr.className} antialiased`}>
         <ThemeProvider attribute="class" enableSystem={true}>
-          <SmoothScrollProvider />
-          <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
+          <ClientProvider>
+            <SmoothScrollProvider />
+            <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
+          </ClientProvider>
         </ThemeProvider>
       </body>
     </html>

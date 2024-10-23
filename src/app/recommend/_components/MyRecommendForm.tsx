@@ -352,7 +352,7 @@ export default function MyRecommendForm() {
                         id="agreement"
                         checked={!!watchedFields["agreement"]}
                         onCheckedChange={(checked) => {
-                          recommendProgressForm.setValue("agreement", checked);
+                          recommendProgressForm.setValue("agreement", checked as boolean);
                         }}
                       />
                       <FormLabel htmlFor="agreement">
