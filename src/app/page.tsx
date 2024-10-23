@@ -1,13 +1,14 @@
 import React from "react";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 
 // components
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import StyleTrendChart from "@/components/blocks/StyleTrendChart";
 import BeautyTrends from "@/components/blocks/BeautyTrends";
 import PopularFashionItems from "@/components/blocks/PopularFashionItems";
 import RecentSearches from "@/components/blocks/RecentSearches";
+const StyleTrendChart = dynamic(() => import("@/components/blocks/StyleTrendChart"), {
+  ssr: false,
+});
 
 import MainHeroSection from "./_components/MainHeroSection";
 import MainTodayWeatherFasion from "./_components/TodayWeatherFasion";
