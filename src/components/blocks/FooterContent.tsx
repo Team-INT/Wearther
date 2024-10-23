@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function FooterContent() {
   return (
-    <div className="bg-[#4E4E5A] py-8 px-12 h-full w-full flex flex-col justify-between">
+    <div className="bg-[#4E4E5A] py-12 px-12 h-full w-full flex flex-col justify-between">
       <Nav />
       <Section2 />
     </div>
@@ -13,7 +13,7 @@ export default function FooterContent() {
 
 const Section2 = () => {
   return (
-    <div className="flex justify-between items-end">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 lg:justify-between items-start lg:items-end">
       <h1 className="text-[14vw] leading-[0.8] mt-10 font-bold text-foreground">Wearther</h1>
       <div className="text-foreground">
         <address className="not-italic">newabekar@naver.com</address>
