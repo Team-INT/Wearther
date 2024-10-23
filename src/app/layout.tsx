@@ -6,8 +6,8 @@ import {Noto_Sans_KR} from "next/font/google";
 // style
 import "./globals.css";
 
-// components
-import {AuroraBackground} from "@/components/ui/aurora-background";
+// context
+import {AuroraBackgroundProvider} from "@/components/context/AuroraBackgroundProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${noto_sans_kr.className} antialiased`}>
-        <AuroraBackground>{children}</AuroraBackground>
+        <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
       </body>
     </html>
   );

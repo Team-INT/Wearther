@@ -14,7 +14,7 @@ import {Sun, Moon} from "lucide-react";
 export default function Header() {
   const {theme, setTheme} = useTheme();
   return (
-    <header className="relative z-10 flex justify-between items-center w-full mb-8 py-4 px-6">
+    <header className="relative z-10 flex justify-between items-center w-full py-4 px-6">
       <h1 className="text-2xl md:text-3xl font-bold text-primary">
         <Link href="/">Wearther</Link>
       </h1>
