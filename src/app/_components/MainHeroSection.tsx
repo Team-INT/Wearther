@@ -162,7 +162,7 @@ export default function MainHeroSection() {
           </Drawer>
         )}
         <Button asChild>
-          <Link href="/recommend">맞춤 추천 받기</Link>
+          <Link href="/products/recommend">맞춤 추천 받기</Link>
         </Button>
       </div>
     </section>

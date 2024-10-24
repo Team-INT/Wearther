@@ -16,8 +16,8 @@ import {Progress} from "@/components/ui/progress";
 import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
 
 // hooks
-import useFormTransition from "../_hooks/useFormTransition";
-import useAnimateProgress from "../_hooks/useAnimateProgress";
+import useFormTransition from "@/app/products/recommend/_hooks/useFormTransition";
+import useAnimateProgress from "@/app/products/recommend/_hooks/useAnimateProgress";
 
 // store
 import useProgressStore from "@/lib/store/useRecommendStore";
@@ -97,7 +97,7 @@ export default function MyRecommendForm() {
 
   const onSubmit = (data: recommendProgressSchemaType) => {
     console.log("Form submitted:", data);
-    router.push("/recommend/result");
+    router.push("/products/recommend/result");
   };
 
   const nextStep = () => setStep(Math.min(step + 1, 3));

@@ -82,9 +82,9 @@ export default function WeatherFashionMain() {
                 스타일 트렌드
                 <Link href="">더보기</Link>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="flex flex-col gap-2">
                 <span>최근 한달 간 트랜디한 스타일을 보여줍니다.</span>
-                <span>기준일: {now.format("YYYY년MM월")}</span>
+                <span>기준일: {now.format("YYYY년 MM월 DD일")}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -112,9 +112,9 @@ export default function WeatherFashionMain() {
                 스타일 트렌드
                 <Link href="">더보기</Link>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="flex flex-col gap-2">
                 <span>최근 한달 간 트랜디한 스타일을 보여줍니다.</span>
-                <span>기준일: {now.format("YYYY년MM월")}</span>
+                <span>기준일: {now.format("YYYY년 MM월 DD일")}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>

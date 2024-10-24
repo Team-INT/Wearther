@@ -1,4 +1,5 @@
 import React from "react";
+import dayjs, {Dayjs} from "dayjs";
 
 // icons
 import {Sun, Droplets, Wind} from "lucide-react";
@@ -8,6 +9,7 @@ interface MainTodayWeatherProps {
 }
 
 export default function MainTodayWeather({weatherData}: MainTodayWeatherProps) {
+  const now: Dayjs = dayjs();
   return (
     <div className="bg-secondary/50 rounded-lg p-4">
       <div className="flex items-center justify-between">
@@ -27,7 +29,7 @@ export default function MainTodayWeather({weatherData}: MainTodayWeatherProps) {
           <span>{weatherData.windSpeed}m/s</span>
         </div>
       </div>
-      <p className="mt-4">기준 시간: dayjs</p>
+      <p className="mt-4">기준 시간: {now.format("YYYY년 MM월 DD일 HH시 mm분")}</p>
     </div>
   );
 }
