@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import {Button} from "@/components/ui/button";
 import ThemeToogle from "../ui/ThemeToogle";
+import {HeaderNavigation} from "@/components/blocks/HeaderNavigation";
 
 export default function Header() {
   return (
@@ -10,13 +11,7 @@ export default function Header() {
       <h1 className="text-2xl md:text-3xl font-bold text-primary">
         <Link href="/">Wearther</Link>
       </h1>
-      <nav>
-        <ul>
-          <li>About</li>
-          <li>Pricing</li>
-          <li>Notice</li>
-        </ul>
-      </nav>
+      <HeaderNavigation />
       <div className="flex items-center space-x-4">
         <ThemeToogle />
         <Button variant="outline">로그인</Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 
 // animation
@@ -109,7 +109,6 @@ export default function MyRecommendForm() {
       Object.keys(watchedFields) as Array<keyof recommendProgressSchemaType>
     ).filter((key) => {
       const value = watchedFields[key];
-
       // 필드가 비어 있는지 체크: 값이 undefined, 빈 문자열, 빈 배열이면 채워지지 않은 것으로 간주
       if (value === undefined || value === "" || (Array.isArray(value) && value.length === 0)) {
         return false;
