@@ -7,7 +7,7 @@ import {HeaderNavigation} from "@/components/blocks/HeaderNavigation";
 
 export default function Header() {
   return (
-    <header className="relative z-10 flex justify-between items-center w-full max-w-7xl mx-auto py-4 md:px-12">
+    <header className="relative z-10 flex justify-between items-center w-full max-w-7xl mx-auto py-4 px-6 md:px-12">
       <h1 className="text-2xl md:text-3xl font-bold text-primary">
         <Link href="/">Wearther</Link>
       </h1>

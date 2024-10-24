@@ -29,7 +29,7 @@ export const AuroraBackgroundProvider = ({
         {...props}
       >
         <Header />
-        <main className="relative z-[1] w-full max-w-7xl mt-8 md:mt-12 mb-16 md:mb-24 mx-auto px-4 md:px-12">
+        <main className="relative z-[1] w-full max-w-7xl mt-8 md:mt-16 mb-16 md:mb-24 mx-auto px-6 md:px-12">
           {children}
         </main>
         <div className="fixed inset-0 overflow-hidden" aria-hidden>

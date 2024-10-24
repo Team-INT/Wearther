@@ -19,7 +19,7 @@ import {cn} from "@/lib/utils";
 
 export function HeaderNavigation() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
         {NAVIGATION_CONSTANTS.filter((section) => section.title !== "Social").map((section) => (
           <NavigationMenuItem key={section.title}>

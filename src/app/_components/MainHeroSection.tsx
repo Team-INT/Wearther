@@ -89,7 +89,7 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
           </SelectContent>
         </Select>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 pb-4">
         <label htmlFor="style" className="text-sm font-medium text-muted-foreground">
           선호 스타일
         </label>
@@ -122,10 +122,13 @@ export default function MainHeroSection() {
   };
 
   return (
-    <section className="text-center mb-12 pb-8">
-      <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">날씨, 스타일, 성공적.</h2>
-      <p className="text-xl md:text-2xl text-muted-foreground mb-6">
-        날씨에 맞는 패션이 하입한 스타일의 완성입니다.
+    <section className="text-center mb-12">
+      <h2 className="text-4xl md:text-5xl font-bold text-primary tracking-tight">
+        날씨, 스타일, 성공적.
+      </h2>
+      <p className="text-lg md:text-xl text-muted-foreground my-6">
+        날씨에 맞는 패션이
+        <br className="md:hidden" /> 하입한 스타일의 완성입니다.
       </p>
       <div className="flex justify-center gap-6">
         {isDesktop ? (
