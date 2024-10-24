@@ -2,6 +2,9 @@ import React from "react";
 
 import Link from "next/link";
 
+// constants
+import {NAVIGATION_CONSTANTS} from "@/lib/constants/navigationConst";
+
 export default function FooterContent() {
   return (
     <div className="bg-[#4E4E5A] py-12 px-12 h-full w-full flex flex-col justify-between">
@@ -26,56 +29,26 @@ const Section2 = () => {
 const Nav = () => {
   return (
     <div className="flex flex-col md:flex-row shrink-0 gap-8 md:gap-20">
-      <dl className="flex md:flex-col gap-2">
-        <dt className="mb-2 uppercase text-[#ffffff80]">Products</dt>
-        <dd>
-          <Link href="/products/recommend">Recommend</Link>
-        </dd>
-        <dd>
-          <Link href="/products/trends">Trends</Link>
-        </dd>
-        <dd>
-          <Link href="/products/match-colors">Match Colors</Link>
-        </dd>
-        <dd>Coming Soon</dd>
-      </dl>
-      <dl className="flex md:flex-col gap-2">
-        <dt className="mb-2 uppercase text-[#ffffff80]">Resources</dt>
-        <dd>
-          <Link href="/resources/pricing">Pricing</Link>
-        </dd>
-        <dd>
-          <Link href="/resources/notice">Notice</Link>
-        </dd>
-      </dl>
-      <dl className="flex md:flex-col gap-2">
-        <dt className="mb-2 uppercase text-[#ffffff80]">Company</dt>
-        <dd>
-          <Link href="/company/about">About</Link>
-        </dd>
-        <dd>
-          <Link href="/company/contact-us">Contact Us</Link>
-        </dd>
-        <dd>
-          <Link href="/company/privacy-policy">개인정보 처리방침</Link>
-        </dd>
-        <dd>
-          <Link href="/company/terms">이용 약관</Link>
-        </dd>
-      </dl>
-      <dl className="flex md:flex-col gap-2">
-        <dt className="mb-2 uppercase text-[#ffffff80]">Social</dt>
-        <dd>
-          <Link href="https://github.com" target="_blank">
-            Github
-          </Link>
-        </dd>
-        <dd>
-          <Link href="https://instagram.com" target="_blank">
-            Instagram
-          </Link>
-        </dd>
-      </dl>
+      {NAVIGATION_CONSTANTS.map((section) => (
+        <dl key={section.title} className="flex md:flex-col gap-2">
+          <dt className="mb-2 uppercase text-[#ffffff80]">{section.title}</dt>
+          {section.items.map((item) => (
+            <dd key={item.label}>
+              {item.href ? (
+                <Link
+                  href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  className="inline-block w-full py-2 pr-2 hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span className="inline-block w-full py-2 pr-2">{item.label}</span>
+              )}
+            </dd>
+          ))}
+        </dl>
+      ))}
     </div>
   );
 };
