@@ -14,7 +14,9 @@ export default function Header() {
       <HeaderNavigation />
       <div className="flex items-center space-x-4">
         <ThemeToogle />
-        <Button variant="outline">로그인</Button>
+        <Button asChild>
+          <Link href="/login">로그인</Link>
+        </Button>
       </div>
     </header>
   );

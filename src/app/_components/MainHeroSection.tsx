@@ -126,7 +126,7 @@ export default function MainHeroSection() {
       <h2 className="text-4xl md:text-5xl font-bold text-primary tracking-tight">
         날씨, 스타일, 성공적.
       </h2>
-      <p className="text-lg md:text-xl text-muted-foreground my-6">
+      <p className="text-lg md:text-xl text-foreground my-6">
         날씨에 맞는 패션이
         <br className="md:hidden" /> 하입한 스타일의 완성입니다.
       </p>

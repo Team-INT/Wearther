@@ -10,7 +10,7 @@ const NotFound = () => {
         <div className="flex justify-center">
           <span className="text-9xl font-bold text-primary">404</span>
         </div>
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl whitespace-nowrap">
           페이지를 찾을 수 없습니다
         </h1>
         <p className="text-xl text-muted-foreground">
