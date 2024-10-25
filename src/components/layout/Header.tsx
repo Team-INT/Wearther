@@ -1,34 +1,22 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import {useTheme} from "next-themes";
 
-// components
-import {Toggle} from "@/components/ui/toggle";
 import {Button} from "@/components/ui/button";
 import ThemeToogle from "../ui/ThemeToogle";
-
-// icons
-import {Sun, Moon} from "lucide-react";
+import {HeaderNavigation} from "@/components/blocks/HeaderNavigation";
 
 export default function Header() {
-  const {theme, setTheme} = useTheme();
   return (
-    <header className="relative z-10 flex justify-between items-center w-full py-4 px-6">
+    <header className="relative z-10 flex justify-between items-center w-full max-w-7xl mx-auto py-4 px-6 md:px-12">
       <h1 className="text-2xl md:text-3xl font-bold text-primary">
         <Link href="/">Wearther</Link>
       </h1>
-      <nav>
-        <ul>
-          <li>About</li>
-          <li>Pricing</li>
-          <li>Notice</li>
-        </ul>
-      </nav>
+      <HeaderNavigation />
       <div className="flex items-center space-x-4">
         <ThemeToogle />
-        <Button variant="outline">로그인</Button>
+        <Button asChild>
+          <Link href="/login">로그인</Link>
+        </Button>
       </div>
     </header>
   );

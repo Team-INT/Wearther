@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import dayjs, {Dayjs} from "dayjs";
 
 // components
 import {
@@ -36,6 +37,8 @@ import {
 import Link from "next/link";
 
 export default function WeatherFashionMain() {
+  const now: Dayjs = dayjs();
+
   return (
     <>
       <MainHeroSection />
@@ -47,6 +50,7 @@ export default function WeatherFashionMain() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Sun className="w-6 h-6 text-yellow-500 mr-2" />
+                {/* 위치 서비스 동의 시 위치 제공, 미 동의시 전국 날씨로 */}
                 <span className="text-main-gradient">현재 서울특별시 중구의 날씨는?</span>
               </CardTitle>
             </CardHeader>
@@ -78,9 +82,9 @@ export default function WeatherFashionMain() {
                 스타일 트렌드
                 <Link href="">더보기</Link>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="flex flex-col gap-2">
                 <span>최근 한달 간 트랜디한 스타일을 보여줍니다.</span>
-                <span>기준일: dayjs</span>
+                <span>기준일: {now.format("YYYY년 MM월 DD일")}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -108,9 +112,9 @@ export default function WeatherFashionMain() {
                 스타일 트렌드
                 <Link href="">더보기</Link>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="flex flex-col gap-2">
                 <span>최근 한달 간 트랜디한 스타일을 보여줍니다.</span>
-                <span>기준일: dayjs</span>
+                <span>기준일: {now.format("YYYY년 MM월 DD일")}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 
 // animation
@@ -16,8 +16,8 @@ import {Progress} from "@/components/ui/progress";
 import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
 
 // hooks
-import useFormTransition from "@/app/products/recommend/_hooks/useFormTransition";
-import useAnimateProgress from "@/app/products/recommend/_hooks/useAnimateProgress";
+import useFormTransition from "../_hooks/useFormTransition";
+import useAnimateProgress from "../_hooks/useAnimateProgress";
 
 // store
 import useProgressStore from "@/lib/store/useRecommendStore";
@@ -97,7 +97,7 @@ export default function MyRecommendForm() {
 
   const onSubmit = (data: recommendProgressSchemaType) => {
     console.log("Form submitted:", data);
-    router.push("/products/recommend/result");
+    router.push("/recommend/result");
   };
 
   const nextStep = () => setStep(Math.min(step + 1, 3));
@@ -109,7 +109,6 @@ export default function MyRecommendForm() {
       Object.keys(watchedFields) as Array<keyof recommendProgressSchemaType>
     ).filter((key) => {
       const value = watchedFields[key];
-
       // 필드가 비어 있는지 체크: 값이 undefined, 빈 문자열, 빈 배열이면 채워지지 않은 것으로 간주
       if (value === undefined || value === "" || (Array.isArray(value) && value.length === 0)) {
         return false;
