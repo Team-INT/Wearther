@@ -10,4 +10,4 @@ export default function SurveyPage() {
   return <div>SurveyPage</div>;
 }
 
-// test commit
+// 저장소 재 변경
