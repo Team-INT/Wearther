@@ -1,6 +1,6 @@
 export const weatherData = {
   temperature: 22,
-  condition: "sunny",
+  condition: "맑음",
   humidity: 60,
   windSpeed: 5,
 };
