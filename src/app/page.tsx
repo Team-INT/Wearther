@@ -2,6 +2,9 @@ import React from "react";
 import dynamic from "next/dynamic";
 import dayjs, {Dayjs} from "dayjs";
 
+// api
+import {getCurrentWeather} from "@/lib/service/weather";
+
 // components
 import {
   Card,
@@ -27,7 +30,6 @@ import {Sun, Sparkles, Search, TrendingUp} from "lucide-react";
 
 // mocking
 import {
-  weatherData,
   recentSearches,
   recommendedClothes,
   trendData,
@@ -36,7 +38,9 @@ import {
 } from "@/mocks/mockingData";
 import Link from "next/link";
 
-export default function WeatherFashionMain() {
+export default async function WeatherFashionMain() {
+  const weatherData = await getCurrentWeather();
+
   const now: Dayjs = dayjs();
 
   return (
