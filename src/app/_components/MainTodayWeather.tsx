@@ -12,7 +12,7 @@ export default async function MainTodayWeather({weatherData}: MainTodayWeatherPr
   const now: Dayjs = dayjs();
 
   console.log(weatherData);
-  if (!weatherData) return <div>데이터 호출 문제 발생</div>;
+  if (!weatherData) return <div>현재 제공된 날씨 데이터가 없습니다.</div>;
 
   return (
     <div className="bg-secondary/50 rounded-lg p-4">
