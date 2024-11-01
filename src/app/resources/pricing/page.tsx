@@ -28,14 +28,6 @@ const pricingPlans = [
     popular: false,
   },
   {
-    name: "Basic",
-    price: "5,000",
-    tokens: 50,
-    features: ["상세 날씨 정보", "주간 스타일 추천", "기본 검색 기능", "이메일 지원"],
-    badge: "구매하기",
-    popular: false,
-  },
-  {
     name: "Standard",
     price: "15,000",
     tokens: 200,
@@ -92,16 +84,14 @@ export default function PricingPage() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            {" "}
-            심플한 요금제, 다양한 혜택.{" "}
-          </h2>{" "}
+            심플한 요금제, 다양한 혜택.
+          </h2>
           <p className="text-xl text-muted-foreground mb-6">
-            {" "}
-            원하는 만큼 구매하고, 원하는 대로 사용하세요{" "}
+            원하는 만큼 구매하고, 원하는 대로 사용하세요
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {pricingPlans.map((plan) => (
             <Card
               key={plan.name}

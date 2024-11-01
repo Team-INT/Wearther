@@ -7,7 +7,5 @@ export async function getCurrentWeather() {
     throw new Error("현재 날씨 데이터를 가져오는데 실패했습니다.");
   }
 
-  const data = await response.json();
-
-  return data;
+  return response.json();
 }

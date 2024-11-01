@@ -41,15 +41,15 @@ export const NAVIGATION_CONSTANTS: NavSection[] = [
       {label: "About", href: "/company/about", description: "저희 회사에 대해 알아보세요."},
       {
         label: "Contact Us",
-        href: "/company/contact-us",
+        href: "/company/etc/contact-us",
         description: "문의사항이 있으시면 연락주세요.",
       },
       {
         label: "개인정보 처리방침",
-        href: "/company/privacy-policy",
+        href: "/company/etc/privacy-policy",
         description: "개인정보 처리 방침을 확인하세요.",
       },
-      {label: "이용 약관", href: "/company/terms", description: "이용 약관을 확인하세요."},
+      {label: "이용 약관", href: "/company/etc/terms", description: "이용 약관을 확인하세요."},
     ],
   },
   {

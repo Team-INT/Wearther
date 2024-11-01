@@ -162,7 +162,7 @@ export default function MyRecommendForm() {
                   control={recommendProgressForm.control}
                   name="name"
                   render={({field}) => (
-                    <FormItem className="input-wrap flex items-center justify-between">
+                    <FormItem className="space-y-2">
                       <FormLabel htmlFor="name">이름을 입력해주세요</FormLabel>
                       <FormControl>
                         <Input {...field} id="name" placeholder="이름" required />
@@ -175,7 +175,7 @@ export default function MyRecommendForm() {
                   control={recommendProgressForm.control}
                   name="age"
                   render={({field}) => (
-                    <FormItem className="input-wrap flex items-center justify-between">
+                    <FormItem className="space-y-2">
                       <FormLabel htmlFor="age">나이를 입력해주세요</FormLabel>
                       <FormControl>
                         <Input {...field} id="age" type="number" placeholder="나이" required />

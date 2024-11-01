@@ -17,9 +17,7 @@ import {
 import BeautyTrends from "@/components/blocks/BeautyTrends";
 import PopularFashionItems from "@/components/blocks/PopularFashionItems";
 import RecentSearches from "@/components/blocks/RecentSearches";
-const StyleTrendChart = dynamic(() => import("@/components/charts/StyleTrendChart"), {
-  ssr: false,
-});
+import StyleTrendChart from "@/components/charts/StyleTrendChart";
 
 import MainHeroSection from "./_components/MainHeroSection";
 import MainTodayWeather from "./_components/MainTodayWeather";
@@ -39,7 +37,7 @@ import {
 import Link from "next/link";
 
 export default async function WeatherFashionMain() {
-  const weatherData = await getCurrentWeather();
+  // const weatherData = await getCurrentWeather();
 
   const now: Dayjs = dayjs();
 
@@ -54,13 +52,11 @@ export default async function WeatherFashionMain() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Sun className="w-6 h-6 text-yellow-500 mr-2" />
-                {/* 위치 서비스 동의 시 위치 제공, 미 동의시 전국 날씨로 */}
-                <span className="text-main-gradient">현재 서울특별시 중구의 날씨는?</span>
+
+                <span className="text-main-gradient">오늘의 날씨는?</span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <MainTodayWeather weatherData={weatherData} />
-            </CardContent>
+            <CardContent>{/* <MainTodayWeather weatherData={weatherData} /> */}</CardContent>
           </Card>
           <Card className="col-span-3">
             <CardHeader>
@@ -81,10 +77,14 @@ export default async function WeatherFashionMain() {
           {/* 스타일 트랜트 차트1 */}
           <Card className="col-span-1">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
-                스타일 트렌드
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
+                  스타일 트렌드
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
               <CardDescription className="flex flex-col gap-2">
                 <span>최근 한달 간 트랜디한 스타일을 보여줍니다.</span>
@@ -111,10 +111,14 @@ export default async function WeatherFashionMain() {
           {/* 스타일 트랜트 차트2 */}
           <Card className="col-span-1">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
-                스타일 트렌드
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <TrendingUp className="w-6 h-6 text-blue-500 mr-2" />
+                  스타일 트렌드
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
               <CardDescription className="flex flex-col gap-2">
                 <span>최근 한달 간 트랜디한 스타일을 보여줍니다.</span>
@@ -144,10 +148,14 @@ export default async function WeatherFashionMain() {
           {/* 인기 패션 아이템: PopularFashionItems */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
-                인기 패션 아이템
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
+                  인기 패션 아이템
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -158,10 +166,14 @@ export default async function WeatherFashionMain() {
           {/* 뷰티 트렌드: BeautyTrends */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
-                뷰티 트렌드
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
+                  뷰티 트렌드
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -172,10 +184,14 @@ export default async function WeatherFashionMain() {
           {/* 최근 검색어: RecentSearches*/}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Search className="w-6 h-6 text-green-500 mr-2" />
-                최근 검색어
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Search className="w-6 h-6 text-green-500 mr-2" />
+                  최근 검색어
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
