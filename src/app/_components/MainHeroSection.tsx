@@ -28,6 +28,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {Input} from "@/components/ui/input";
+import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
+
+// schema
+import {recommendTrendSchema, recommendTrendSchemaType} from "@/service/schema/recommend.schema";
+
+// react hook form + zod
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 const useMediaQuery = (query: string) => {
   const [matches, setMatches] = useState(false);
@@ -46,69 +55,124 @@ const useMediaQuery = (query: string) => {
 };
 
 const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [style, setStyle] = useState("");
+  const recommendTrendForm = useForm<recommendTrendSchemaType>({
+    resolver: zodResolver(recommendTrendSchema),
+    defaultValues: {
+      age: "",
+      gender: "",
+      category: "",
+      keyword: "",
+    },
+  });
 
   return (
-    <form
-      className="space-y-4"
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-      }}
-    >
-      <div className="space-y-2">
-        <label htmlFor="age" className="text-sm font-medium text-muted-foreground">
-          연령대
-        </label>
-        <Select value={age} onValueChange={setAge}>
-          <SelectTrigger id="age">
-            <SelectValue placeholder="선택해주세요" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="10s">10대</SelectItem>
-            <SelectItem value="20s">20대</SelectItem>
-            <SelectItem value="30s">30대</SelectItem>
-            <SelectItem value="40s">40대 이상</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="gender" className="text-sm font-medium text-muted-foreground">
-          성별
-        </label>
-        <Select value={gender} onValueChange={setGender}>
-          <SelectTrigger id="gender">
-            <SelectValue placeholder="선택해주세요" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="male">남성</SelectItem>
-            <SelectItem value="female">여성</SelectItem>
-            <SelectItem value="other">기타</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="space-y-2 pb-4">
-        <label htmlFor="style" className="text-sm font-medium text-muted-foreground">
-          선호 스타일
-        </label>
-        <Select value={style} onValueChange={setStyle}>
-          <SelectTrigger id="style">
-            <SelectValue placeholder="선택해주세요" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="casual">캐주얼</SelectItem>
-            <SelectItem value="formal">포멀</SelectItem>
-            <SelectItem value="sporty">스포티</SelectItem>
-            <SelectItem value="vintage">빈티지</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <Button type="submit" className="w-full">
-        맞춤 추천 받기
-      </Button>
-    </form>
+    <Form {...recommendTrendForm}>
+      <form
+        className="space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <div className="space-y-2">
+          <FormField
+            control={recommendTrendForm.control}
+            name="age"
+            render={({field}) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  연령대를 선택해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger id="age">
+                      <SelectValue placeholder="선택해주세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="10s">10대</SelectItem>
+                      <SelectItem value="20s">20대</SelectItem>
+                      <SelectItem value="30s">30대</SelectItem>
+                      <SelectItem value="40s">40대 이상</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="space-y-2">
+          <FormField
+            control={recommendTrendForm.control}
+            name="gender"
+            render={({field}) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  성별을 선택해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger id="age">
+                      <SelectValue placeholder="선택해주세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">남성</SelectItem>
+                      <SelectItem value="female">여성</SelectItem>
+                      <SelectItem value="other">기타</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="space-y-2">
+          <FormField
+            control={recommendTrendForm.control}
+            name="gender"
+            render={({field}) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  카테고리를 선택해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger id="age">
+                      <SelectValue placeholder="선택해주세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="50000001">패션/잡화</SelectItem>
+                      <SelectItem value="50000002">화장품/미용</SelectItem>
+                      <SelectItem value="50000008">패션/의류</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <FormField
+          control={recommendTrendForm.control}
+          name="keyword"
+          render={({field}) => (
+            <FormItem className="space-y-2 pb-4">
+              <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                찾고싶은 키워드를 입력해주세요.
+              </FormLabel>
+              <FormControl>
+                <Input {...field} id="name" placeholder="이름" required maxLength={20} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">
+          맞춤 추천 받기
+        </Button>
+      </form>
+    </Form>
   );
 };
 

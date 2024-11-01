@@ -26,6 +26,9 @@ export const metadata: Metadata = {
 
 const noto_sans_kr = Noto_Sans_KR({subsets: ["latin"]});
 
+// 이거 없으면 빌드 시 static route돼서 같은 시간만 주구장창 나옴
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{

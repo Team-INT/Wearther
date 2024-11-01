@@ -11,7 +11,6 @@ interface MainTodayWeatherProps {
 export default async function MainTodayWeather({weatherData}: MainTodayWeatherProps) {
   const now: Dayjs = dayjs();
 
-  console.log(weatherData);
   if (!weatherData) return <div>현재 제공된 날씨 데이터가 없습니다.</div>;
 
   return (
