@@ -81,21 +81,6 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
         <div className="space-y-2">
           <FormField
             control={recommendTrendForm.control}
-            name="keyword"
-            render={({field}) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  찾고싶은 키워드를 입력해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} id="name" placeholder="이름" required maxLength={20} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={recommendTrendForm.control}
             name="age"
             render={({field}) => (
               <FormItem className="space-y-2">
@@ -153,9 +138,9 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
             control={recommendTrendForm.control}
             name="gender"
             render={({field}) => (
-              <FormItem className="space-y-2 pb-4 md:pb-8">
+              <FormItem className="space-y-2">
                 <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  카테고리를 선택해주세요.
+                  대분류를 선택해주세요.
                 </FormLabel>
                 <FormControl>
                   <Select>
@@ -173,9 +158,24 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
               </FormItem>
             )}
           />
+          <FormField
+            control={recommendTrendForm.control}
+            name="keyword"
+            render={({field}) => (
+              <FormItem className="space-y-2 pb-4 md:pb-8">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  관심있는 키워드를 입력해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} id="name" placeholder="키워드" maxLength={20} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <Button type="submit" className="w-full">
-          맞춤 추천 받기
+          맞춤 정보 저장하기
         </Button>
       </form>
     </Form>
@@ -219,7 +219,7 @@ export default function MainHeroSection() {
                     </TooltipTrigger>
                     <TooltipContent>
                       <ol>
-                        <li>1. 추천받은 트랜드의 결과를 저장할 수 있어요.</li>
+                        <li>1. 매번 정보를 입력하지 않고 쉽게 검색할 수 있어요.</li>
                         <li>2. 저장했던 결과들을 언제든지 sns로 공유 할 수 있어요. </li>
                         <li>3. 프로모션과 이벤트에 관한 알림들을 받아볼 수 있어요. </li>
                       </ol>
