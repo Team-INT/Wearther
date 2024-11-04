@@ -172,19 +172,12 @@ export default async function WeatherFashionMain() {
           {/* 뷰티 트렌드: BeautyTrends */}
           <Card>
             <CardHeader>
-<<<<<<< HEAD
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center">
                   <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
                   뷰티 트렌드
                 </div>
                 <Link href="" className="text-sm text-muted-foreground hover:text-primary">
-=======
-              <CardTitle className="flex items-center">
-                <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
-                뷰티 트렌드
-                <Link className="ml-2 text-base" href="">
->>>>>>> origin/dev
                   더보기
                 </Link>
               </CardTitle>
