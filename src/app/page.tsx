@@ -101,7 +101,10 @@ export default async function WeatherFashionMain() {
                     Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
                   </div>
                   <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    일별 데이터는 익일 8~10시간 후 결과에 반영됩니다.
+                    <br />
+                    그래프는 네이버에서 해당 검색어가 검색된 횟수를 일별/주별/월별 각각 합산하여
+                    조회기간 내 최다 검색량을 100으로 설정하여 상대적인 변화를 나타냅니다.
                   </div>
                 </div>
               </div>
@@ -135,7 +138,10 @@ export default async function WeatherFashionMain() {
                     Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
                   </div>
                   <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    일별 데이터는 익일 8~10시간 후 결과에 반영됩니다.
+                    <br />
+                    그래프는 네이버에서 해당 검색어가 검색된 횟수를 일별/주별/월별 각각 합산하여
+                    조회기간 내 최다 검색량을 100으로 설정하여 상대적인 변화를 나타냅니다.
                   </div>
                 </div>
               </div>

@@ -167,7 +167,12 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
                   관심있는 키워드를 입력해주세요.
                 </FormLabel>
                 <FormControl>
-                  <Input {...field} id="name" placeholder="키워드" maxLength={20} />
+                  <Input
+                    {...field}
+                    id="name"
+                    placeholder="예) 셔츠/남방, 재킷, 코트"
+                    maxLength={20}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
