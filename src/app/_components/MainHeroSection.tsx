@@ -30,10 +30,13 @@ import {
 } from "@/components/ui/select";
 import {Input} from "@/components/ui/input";
 import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
+<<<<<<< HEAD
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 // icon
 import {Info} from "lucide-react";
+=======
+>>>>>>> origin/dev
 
 // schema
 import {recommendTrendSchema, recommendTrendSchemaType} from "@/service/schema/recommend.schema";
@@ -93,12 +96,19 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
                       <SelectValue placeholder="선택해주세요" />
                     </SelectTrigger>
                     <SelectContent>
+<<<<<<< HEAD
                       <SelectItem value="10">10대</SelectItem>
                       <SelectItem value="20">20대</SelectItem>
                       <SelectItem value="30">30대</SelectItem>
                       <SelectItem value="40">40대</SelectItem>
                       <SelectItem value="50">50대</SelectItem>
                       <SelectItem value="60">60대 이상</SelectItem>
+=======
+                      <SelectItem value="10s">10대</SelectItem>
+                      <SelectItem value="20s">20대</SelectItem>
+                      <SelectItem value="30s">30대</SelectItem>
+                      <SelectItem value="40s">40대 이상</SelectItem>
+>>>>>>> origin/dev
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -122,8 +132,13 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
                       <SelectValue placeholder="선택해주세요" />
                     </SelectTrigger>
                     <SelectContent>
+<<<<<<< HEAD
                       <SelectItem value="f">남성</SelectItem>
                       <SelectItem value="m">여성</SelectItem>
+=======
+                      <SelectItem value="male">남성</SelectItem>
+                      <SelectItem value="female">여성</SelectItem>
+>>>>>>> origin/dev
                       <SelectItem value="other">기타</SelectItem>
                     </SelectContent>
                   </Select>
@@ -140,7 +155,11 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
             render={({field}) => (
               <FormItem className="space-y-2">
                 <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+<<<<<<< HEAD
                   대분류를 선택해주세요.
+=======
+                  카테고리를 선택해주세요.
+>>>>>>> origin/dev
                 </FormLabel>
                 <FormControl>
                   <Select>
@@ -158,6 +177,7 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
               </FormItem>
             )}
           />
+<<<<<<< HEAD
           <FormField
             control={recommendTrendForm.control}
             name="keyword"
@@ -181,6 +201,26 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
         </div>
         <Button type="submit" className="w-full">
           맞춤 정보 저장하기
+=======
+        </div>
+        <FormField
+          control={recommendTrendForm.control}
+          name="keyword"
+          render={({field}) => (
+            <FormItem className="space-y-2 pb-4">
+              <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                찾고싶은 키워드를 입력해주세요.
+              </FormLabel>
+              <FormControl>
+                <Input {...field} id="name" placeholder="이름" required maxLength={20} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">
+          맞춤 추천 받기
+>>>>>>> origin/dev
         </Button>
       </form>
     </Form>
