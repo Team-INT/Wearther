@@ -13,3 +13,12 @@ export const recommendProgressSchema = z.object({
 });
 
 export type recommendProgressSchemaType = z.infer<typeof recommendProgressSchema>;
+
+export const recommendTrendSchema = z.object({
+  age: z.string().min(1, "연령대를 선택해주세요."),
+  gender: z.string().min(1, "성별을 선택해주세요."),
+  category: z.string().min(1, "카테고리를 선택해주세요."),
+  keyword: z.string().min(1, "키워드를 입력해주세요."),
+});
+
+export type recommendTrendSchemaType = z.infer<typeof recommendTrendSchema>;
