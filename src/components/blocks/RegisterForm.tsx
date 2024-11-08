@@ -1,30 +1,45 @@
-"use client"
-
-import Link from "next/link";
+"use client";
 
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, registerSchemaType } from "@/service/schema/auth.schema";
-import { signInWithCredentials } from "@/server/auth";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {registerSchema, registerSchemaType} from "@/service/schema/auth.schema";
+import {signIn} from "next-auth/react"; // signIn 함수 임포트
 
 export function RegisterForm() {
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      userName: '',
-      email: '',
-      password: '',
+      userName: "",
+      email: "",
+      password: "",
     },
   });
 
-  const onSubmit = (values)=> {
-    console.log(values)
-    signInWithCredentials(values)
-  }
+  const onSubmit = async (values) => {
+    console.log(values);
+    try {
+      const response = await signIn("credentials", {
+        userName: values.userName,
+        email: values.email,
+        password: values.password,
+        redirect: false, // 필요한 경우 설정
+      });
+
+      console.log(response);
+
+      if (!response?.ok) {
+        console.log("인증 실패");
+      } else {
+        console.log("인증 성공");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -40,7 +55,7 @@ export function RegisterForm() {
                 <FormField
                   control={form.control}
                   name="userName"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="user-name">name</FormLabel>
                       <FormControl>
@@ -56,7 +71,7 @@ export function RegisterForm() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="email">Email</FormLabel>
                       <FormControl>
@@ -72,7 +87,7 @@ export function RegisterForm() {
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <FormControl>
@@ -84,7 +99,7 @@ export function RegisterForm() {
                 />
               </div>
 
-              <Button variant="outline" className="w-full">
+              <Button type="submit" variant="outline" className="w-full">
                 회원가입
               </Button>
             </div>

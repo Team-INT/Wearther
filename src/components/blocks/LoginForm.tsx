@@ -1,32 +1,32 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, loginSchemaType } from "@/service/schema/auth.schema";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {loginSchema, loginSchemaType} from "@/service/schema/auth.schema";
 // import { signInWithCredentials, signInWithGoogle } from "@/server/auth";
 
 export function LoginForm<loginSchemaType>() {
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
-  const onSubmit = (values)=> {
+  const onSubmit = (values) => {
     // 여기서 버튼 이름에 따라 if문으로 credentials(일반) / google(구글) 체크해서 로그인
     // signInWithCredentials(values)
     // signInWithGoogle(value)
-    console.log(values)
-    signInWithCredentials(values)
-  }
+    console.log(values);
+    // signInWithCredentials(values)
+  };
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -42,7 +42,7 @@ export function LoginForm<loginSchemaType>() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="email">Email</FormLabel>
                       <FormControl>
@@ -58,7 +58,7 @@ export function LoginForm<loginSchemaType>() {
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <div className="flex items-center">
                         <FormLabel htmlFor="password">Password</FormLabel>
@@ -66,7 +66,7 @@ export function LoginForm<loginSchemaType>() {
                           Forgot your password?
                         </Link>
                       </div>
-                      
+
                       <FormControl>
                         <Input id="password" type="password" {...field} />
                       </FormControl>
