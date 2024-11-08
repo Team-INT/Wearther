@@ -28,6 +28,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {Input} from "@/components/ui/input";
+import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+
+// icon
+import {Info} from "lucide-react";
+
+// schema
+import {recommendTrendSchema, recommendTrendSchemaType} from "@/service/schema/recommend.schema";
+
+// react hook form + zod
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 const useMediaQuery = (query: string) => {
   const [matches, setMatches] = useState(false);
@@ -46,69 +59,131 @@ const useMediaQuery = (query: string) => {
 };
 
 const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [style, setStyle] = useState("");
+  const recommendTrendForm = useForm<recommendTrendSchemaType>({
+    resolver: zodResolver(recommendTrendSchema),
+    defaultValues: {
+      age: "",
+      gender: "",
+      category: "",
+      keyword: "",
+    },
+  });
 
   return (
-    <form
-      className="space-y-4"
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-      }}
-    >
-      <div className="space-y-2">
-        <label htmlFor="age" className="text-sm font-medium text-muted-foreground">
-          연령대
-        </label>
-        <Select value={age} onValueChange={setAge}>
-          <SelectTrigger id="age">
-            <SelectValue placeholder="선택해주세요" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="10s">10대</SelectItem>
-            <SelectItem value="20s">20대</SelectItem>
-            <SelectItem value="30s">30대</SelectItem>
-            <SelectItem value="40s">40대 이상</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="gender" className="text-sm font-medium text-muted-foreground">
-          성별
-        </label>
-        <Select value={gender} onValueChange={setGender}>
-          <SelectTrigger id="gender">
-            <SelectValue placeholder="선택해주세요" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="male">남성</SelectItem>
-            <SelectItem value="female">여성</SelectItem>
-            <SelectItem value="other">기타</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="space-y-2 pb-4">
-        <label htmlFor="style" className="text-sm font-medium text-muted-foreground">
-          선호 스타일
-        </label>
-        <Select value={style} onValueChange={setStyle}>
-          <SelectTrigger id="style">
-            <SelectValue placeholder="선택해주세요" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="casual">캐주얼</SelectItem>
-            <SelectItem value="formal">포멀</SelectItem>
-            <SelectItem value="sporty">스포티</SelectItem>
-            <SelectItem value="vintage">빈티지</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <Button type="submit" className="w-full">
-        맞춤 추천 받기
-      </Button>
-    </form>
+    <Form {...recommendTrendForm}>
+      <form
+        className="space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <div className="space-y-2">
+          <FormField
+            control={recommendTrendForm.control}
+            name="age"
+            render={({field}) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  연령대를 선택해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger id="age">
+                      <SelectValue placeholder="선택해주세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="10">10대</SelectItem>
+                      <SelectItem value="20">20대</SelectItem>
+                      <SelectItem value="30">30대</SelectItem>
+                      <SelectItem value="40">40대</SelectItem>
+                      <SelectItem value="50">50대</SelectItem>
+                      <SelectItem value="60">60대 이상</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="space-y-2">
+          <FormField
+            control={recommendTrendForm.control}
+            name="gender"
+            render={({field}) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  성별을 선택해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger id="age">
+                      <SelectValue placeholder="선택해주세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="f">남성</SelectItem>
+                      <SelectItem value="m">여성</SelectItem>
+                      <SelectItem value="other">기타</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="space-y-2">
+          <FormField
+            control={recommendTrendForm.control}
+            name="gender"
+            render={({field}) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  대분류를 선택해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger id="age">
+                      <SelectValue placeholder="선택해주세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="50000001">패션/잡화</SelectItem>
+                      <SelectItem value="50000002">화장품/미용</SelectItem>
+                      <SelectItem value="50000008">패션/의류</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={recommendTrendForm.control}
+            name="keyword"
+            render={({field}) => (
+              <FormItem className="space-y-2 pb-4 md:pb-8">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  관심있는 키워드를 입력해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    id="name"
+                    placeholder="예) 셔츠/남방, 재킷, 코트"
+                    maxLength={20}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button type="submit" className="w-full">
+          맞춤 정보 저장하기
+        </Button>
+      </form>
+    </Form>
   );
 };
 
@@ -140,8 +215,22 @@ export default function MainHeroSection() {
               <DialogHeader>
                 <DialogTitle>맞춤 트랜드를 위한 정보</DialogTitle>
               </DialogHeader>
-              <DialogDescription>
-                로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.비로그인 횟수 안내 툴팁
+              <DialogDescription className="flex items-center justify-between">
+                로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <ol>
+                        <li>1. 매번 정보를 입력하지 않고 쉽게 검색할 수 있어요.</li>
+                        <li>2. 저장했던 결과들을 언제든지 sns로 공유 할 수 있어요. </li>
+                        <li>3. 프로모션과 이벤트에 관한 알림들을 받아볼 수 있어요. </li>
+                      </ol>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </DialogDescription>
               <CustomizationForm onSubmit={handleCustomizationSubmit} />
             </DialogContent>
