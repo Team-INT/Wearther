@@ -1,3 +1,4 @@
+import { getSession } from "@/server/auth"
 import { NextRequest, NextResponse } from "next/server"
 import { match } from "path-to-regexp"
 
@@ -17,9 +18,10 @@ export async function middleware(request: NextRequest) {
   }
 
   // 인증 후 회원가입/로그인 접근 제한
-  if(isMatch(request.nextUrl.pathname, matchersForSignIn)){
-    return (await getSession()) ? NextResponse.redirect(new URL('/', request.url)) : NextResponse.next()
-  }
+  // if(isMatch(request.nextUrl.pathname, matchersForSignIn)){
+  //   console.log(await getSession())
+  //   return (await getSession()) ? NextResponse.redirect(new URL('/', request.url)) : NextResponse.next()
+  // }
 
   return NextResponse.next()
 }
