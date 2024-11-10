@@ -8,8 +8,10 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {registerSchema, registerSchemaType} from "@/service/schema/auth.schema";
 import {signIn} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 export function RegisterForm() {
+  const router = useRouter();
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -20,23 +22,17 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (values) => {
-    const trimmedValues = {
-      username: values.username.trim(),
-      email: values.email.trim(),
-      password: values.password.trim(),
-    };
-    console.log("Trimmed values:", trimmedValues);
-
     const response = await signIn("credentials", {
       redirect: false,
-      ...trimmedValues,
+      ...values,
+      action: "register",
     });
 
     if (response?.error) {
-      console.error("회원가입 에러:", response.error);
-      alert(response.error);
+      alert(`에러: ${response.error}`);
     } else {
-      console.log("회원가입 성공", response);
+      // 회원가입 성공 시 처리 로직
+      router.push("/");
     }
   };
 

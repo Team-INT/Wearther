@@ -27,15 +27,17 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
           const type = credentials.username ? "register" : "login";
           const response = await _signIn(type, credentials);
 
-          console.log("signin 에러", response);
+          console.log("API 응답 데이터:", response);
 
-          if (response && response.user) {
-            const user = response.user;
-            return {
-              id: user.id.toString(),
-              name: user.username || user.name,
-              email: user.email,
+          if (response && response.userId) {
+            const user = {
+              id: response.userId.toString(),
+              name: response.username,
+              email: response.userEmail,
+              accessToken: response.accessToken,
+              refreshToken: response.refreshToken,
             };
+            return user;
           } else {
             console.error("잘못된 유저 데이터를 api로 넘겼습니다.");
             return null;
