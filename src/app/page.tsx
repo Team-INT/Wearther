@@ -17,9 +17,7 @@ import {
 import BeautyTrends from "@/components/blocks/BeautyTrends";
 import PopularFashionItems from "@/components/blocks/PopularFashionItems";
 import RecentSearches from "@/components/blocks/RecentSearches";
-const StyleTrendChart = dynamic(() => import("@/components/charts/StyleTrendChart"), {
-  ssr: false,
-});
+import StyleTrendChart from "@/components/charts/StyleTrendChart";
 
 import MainHeroSection from "./_components/MainHeroSection";
 import MainTodayWeather from "./_components/MainTodayWeather";
@@ -103,7 +101,10 @@ export default async function WeatherFashionMain() {
                     Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
                   </div>
                   <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    일별 데이터는 익일 8~10시간 후 결과에 반영됩니다.
+                    <br />
+                    그래프는 네이버에서 해당 검색어가 검색된 횟수를 일별/주별/월별 각각 합산하여
+                    조회기간 내 최다 검색량을 100으로 설정하여 상대적인 변화를 나타냅니다.
                   </div>
                 </div>
               </div>
@@ -137,7 +138,10 @@ export default async function WeatherFashionMain() {
                     Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
                   </div>
                   <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    일별 데이터는 익일 8~10시간 후 결과에 반영됩니다.
+                    <br />
+                    그래프는 네이버에서 해당 검색어가 검색된 횟수를 일별/주별/월별 각각 합산하여
+                    조회기간 내 최다 검색량을 100으로 설정하여 상대적인 변화를 나타냅니다.
                   </div>
                 </div>
               </div>
@@ -150,10 +154,14 @@ export default async function WeatherFashionMain() {
           {/* 인기 패션 아이템: PopularFashionItems */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
-                인기 패션 아이템
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Sparkles className="w-6 h-6 text-purple-500 mr-2" />
+                  인기 패션 아이템
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -164,10 +172,12 @@ export default async function WeatherFashionMain() {
           {/* 뷰티 트렌드: BeautyTrends */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
-                뷰티 트렌드
-                <Link className="ml-2 text-base" href="">
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <TrendingUp className="w-6 h-6 text-pink-500 mr-2" />
+                  뷰티 트렌드
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
                   더보기
                 </Link>
               </CardTitle>
@@ -180,10 +190,14 @@ export default async function WeatherFashionMain() {
           {/* 최근 검색어: RecentSearches*/}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Search className="w-6 h-6 text-green-500 mr-2" />
-                최근 검색어
-                <Link href="">더보기</Link>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Search className="w-6 h-6 text-green-500 mr-2" />
+                  최근 검색어
+                </div>
+                <Link href="" className="text-sm text-muted-foreground hover:text-primary">
+                  더보기
+                </Link>
               </CardTitle>
             </CardHeader>
             <CardContent>

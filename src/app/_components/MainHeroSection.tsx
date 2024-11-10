@@ -30,6 +30,10 @@ import {
 } from "@/components/ui/select";
 import {Input} from "@/components/ui/input";
 import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+
+// icon
+import {Info} from "lucide-react";
 
 // schema
 import {recommendTrendSchema, recommendTrendSchemaType} from "@/service/schema/recommend.schema";
@@ -89,10 +93,12 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
                       <SelectValue placeholder="선택해주세요" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="10s">10대</SelectItem>
-                      <SelectItem value="20s">20대</SelectItem>
-                      <SelectItem value="30s">30대</SelectItem>
-                      <SelectItem value="40s">40대 이상</SelectItem>
+                      <SelectItem value="10">10대</SelectItem>
+                      <SelectItem value="20">20대</SelectItem>
+                      <SelectItem value="30">30대</SelectItem>
+                      <SelectItem value="40">40대</SelectItem>
+                      <SelectItem value="50">50대</SelectItem>
+                      <SelectItem value="60">60대 이상</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -116,8 +122,8 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
                       <SelectValue placeholder="선택해주세요" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="male">남성</SelectItem>
-                      <SelectItem value="female">여성</SelectItem>
+                      <SelectItem value="f">남성</SelectItem>
+                      <SelectItem value="m">여성</SelectItem>
                       <SelectItem value="other">기타</SelectItem>
                     </SelectContent>
                   </Select>
@@ -134,7 +140,7 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
             render={({field}) => (
               <FormItem className="space-y-2">
                 <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  카테고리를 선택해주세요.
+                  대분류를 선택해주세요.
                 </FormLabel>
                 <FormControl>
                   <Select>
@@ -152,24 +158,30 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
               </FormItem>
             )}
           />
+
+          <FormField
+            control={recommendTrendForm.control}
+            name="keyword"
+            render={({field}) => (
+              <FormItem className="space-y-2 pb-4 md:pb-8">
+                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                  관심있는 키워드를 입력해주세요.
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    id="name"
+                    placeholder="예) 셔츠/남방, 재킷, 코트"
+                    maxLength={20}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
-        <FormField
-          control={recommendTrendForm.control}
-          name="keyword"
-          render={({field}) => (
-            <FormItem className="space-y-2 pb-4">
-              <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                찾고싶은 키워드를 입력해주세요.
-              </FormLabel>
-              <FormControl>
-                <Input {...field} id="name" placeholder="이름" required maxLength={20} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button type="submit" className="w-full">
-          맞춤 추천 받기
+          맞춤 정보 저장하기
         </Button>
       </form>
     </Form>
@@ -204,8 +216,22 @@ export default function MainHeroSection() {
               <DialogHeader>
                 <DialogTitle>맞춤 트랜드를 위한 정보</DialogTitle>
               </DialogHeader>
-              <DialogDescription>
-                로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.비로그인 횟수 안내 툴팁
+              <DialogDescription className="flex items-center justify-between">
+                로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <ol>
+                        <li>1. 매번 정보를 입력하지 않고 쉽게 검색할 수 있어요.</li>
+                        <li>2. 저장했던 결과들을 언제든지 sns로 공유 할 수 있어요. </li>
+                        <li>3. 프로모션과 이벤트에 관한 알림들을 받아볼 수 있어요. </li>
+                      </ol>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </DialogDescription>
               <CustomizationForm onSubmit={handleCustomizationSubmit} />
             </DialogContent>

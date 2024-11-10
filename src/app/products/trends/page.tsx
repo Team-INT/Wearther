@@ -46,3 +46,5 @@ export default function TrendPage() {
 //   "age_group": "",
 //   "value": 78.48241
 // },
+
+// https://search.shopping.naver.com/search/category?catId=50000835&origQuery&pagingIndex=1&pagingSize=40&productSet=total&query&sort=rel&timestamp=&viewType=list
