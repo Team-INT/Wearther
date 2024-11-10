@@ -6,10 +6,6 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
   providers: [
     CredentialsProvider({
       authorize: async (credentials) => {
-        if (!credentials.email || !credentials.password) {
-          throw new Error("Missing email or password");
-        }
-
         console.log(credentials);
         const userInfo = credentials;
 
@@ -17,6 +13,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
           if (userInfo.userName) {
             return _signIn("register", userInfo);
           }
+
           return _signIn("login", userInfo);
         } catch (error) {
           throw new Error(error.message);
@@ -28,6 +25,10 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
   session: {
     strategy: "jwt",
     maxAge: 60 * 60 * 24, // 세션 만료 시간 24h
+  },
+  pages: {
+    signIn: "/login",
+    newUser: "/register",
   },
   callbacks: {
     signIn: async () => {
@@ -83,14 +84,13 @@ async function _signIn(
   });
 
   const data = await res.json();
-  console.log(data);
+
   if (res.ok && typeof data !== "string") {
     const {user} = data;
 
     return {
       email: user.email,
       name: user.userName,
-      password: user.password,
     };
   }
 }
