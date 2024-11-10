@@ -7,7 +7,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {registerSchema, registerSchemaType} from "@/service/schema/auth.schema";
-import {signIn} from "next-auth/react"; // signIn 함수 임포트
+import {signIn} from "next-auth/react";
 
 export function RegisterForm() {
   const form = useForm<registerSchemaType>({
@@ -20,32 +20,31 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
-    try {
-      const response = await signIn("credentials", {
-        userName: values.userName,
-        email: values.email,
-        password: values.password,
-        redirect: false, // 필요한 경우 설정
-      });
+    const trimmedValues = {
+      userName: values.userName.trim(),
+      email: values.email.trim(),
+      password: values.password.trim(),
+    };
+    console.log("Trimmed values:", trimmedValues);
 
-      console.log(response);
+    const response = await signIn("credentials", {
+      redirect: false,
+      ...trimmedValues,
+    });
 
-      if (!response?.ok) {
-        console.log("인증 실패");
-      } else {
-        console.log("인증 성공");
-      }
-    } catch (error) {
-      console.error(error);
+    if (response?.error) {
+      console.error("회원가입 에러:", response.error);
+      alert(response.error);
+    } else {
+      console.log("회원가입 성공", response);
     }
   };
 
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>Enter your email below to login to your account</CardDescription>
+        <CardTitle className="text-2xl">회원가입</CardTitle>
+        <CardDescription>회원가입</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
