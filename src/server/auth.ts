@@ -4,7 +4,7 @@ import {signIn, signOut, auth} from "../auth";
 
 export const signInWithCredentials = async (formData) => {
   await signIn("credentials", {
-    userName: formData.userName || "",
+    username: formData.username || "",
     email: formData.email || "",
     password: formData.password || "",
   });

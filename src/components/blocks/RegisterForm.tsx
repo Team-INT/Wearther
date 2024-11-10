@@ -13,7 +13,7 @@ export function RegisterForm() {
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      userName: "",
+      username: "",
       email: "",
       password: "",
     },
@@ -21,7 +21,7 @@ export function RegisterForm() {
 
   const onSubmit = async (values) => {
     const trimmedValues = {
-      userName: values.userName.trim(),
+      username: values.username.trim(),
       email: values.email.trim(),
       password: values.password.trim(),
     };
@@ -53,7 +53,7 @@ export function RegisterForm() {
               <div className="grid gap-2">
                 <FormField
                   control={form.control}
-                  name="userName"
+                  name="username"
                   render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="user-name">name</FormLabel>
