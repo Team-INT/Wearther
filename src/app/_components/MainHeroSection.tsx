@@ -158,6 +158,7 @@ const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
               </FormItem>
             )}
           />
+
           <FormField
             control={recommendTrendForm.control}
             name="keyword"
