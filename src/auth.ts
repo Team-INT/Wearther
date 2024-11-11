@@ -2,19 +2,17 @@ import NextAuth from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import {JWT} from "next-auth/jwt";
+import {Account, User} from "next-auth";
+import {AdapterUser} from "@auth/core/adapters";
+
 // 말씀하신 부분도 해당이 되지만, Credentials 공급자는 로그인 처리 서버(DB)가 별도로 있을테니,
 // 직접 액세스 코드를 받아와서 그대로 활용하는 용도입니다.
-
-type User = {
-  id: string;
-  name: string;
-  email: string;
-};
 
 export const {handlers, signIn, signOut, auth} = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "직접등록",
+      name: "credentials",
       credentials: {
         username: {label: "User Name", type: "text"},
         email: {label: "Email", type: "email"},
@@ -29,6 +27,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
 
           console.log("API 응답 데이터:", response);
 
+          // 서버 구조와 동일하게 응답 구조 변경
           if (response && response.userId) {
             const user = {
               id: response.userId.toString(),
@@ -60,19 +59,20 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     signIn: "/login",
     newUser: "/register",
   },
+
   callbacks: {
     signIn: async () => {
       return true;
     },
-    jwt: async ({token, user}) => {
-      if (user?.accessToken) {
+    jwt: async ({token, user}: {token: JWT; user: User | AdapterUser; account: Account | null}) => {
+      if (user && "accessToken" in user) {
         token.accessToken = user.accessToken;
       }
       return token;
     },
     session: async ({session, token}) => {
       if (token?.accessToken) {
-        session.accessToken = token.accessToken;
+        (session as any).accessToken = token.accessToken;
       }
       return session;
     },
@@ -98,7 +98,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
   },
 });
 
-async function _signIn(type, body) {
+async function _signIn(type: string, body: any) {
   console.log("Entering _signIn with type:", type, "and body:", body);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/${type}/email`, {
     method: "POST",
