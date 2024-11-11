@@ -35,12 +35,13 @@ import {
   beautyTrends,
 } from "@/mocks/mockingData";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 
 export default async function WeatherFashionMain() {
-  // const weatherData = await getCurrentWeather();
+  const weatherData = await getCurrentWeather();
 
   const now: Dayjs = dayjs();
-
+  
   return (
     <>
       <MainHeroSection />
@@ -56,7 +57,7 @@ export default async function WeatherFashionMain() {
                 <span className="text-main-gradient">오늘의 날씨는?</span>
               </CardTitle>
             </CardHeader>
-            <CardContent>{/* <MainTodayWeather weatherData={weatherData} /> */}</CardContent>
+            <CardContent><MainTodayWeather weatherData={weatherData} /></CardContent>
           </Card>
           <Card className="col-span-3">
             <CardHeader>
