@@ -1,9 +1,13 @@
-import { apiRequest } from "@/utils/api";
+"use client"
+
+import apiRequest from "@/utils/api";
+import { useQuery } from "@tanstack/react-query";
 
 const weatherApi = apiRequest('/weather')
 
-export async function getCurrentWeather() {
-  const data = await weatherApi.get('/current')
-
-  return data
+export function GetCurrentWeather() {
+  return useQuery({
+    queryKey: ['test'],
+    queryFn: ()=> weatherApi.get('/current')
+  })
 }
