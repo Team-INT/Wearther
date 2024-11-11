@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
+  async rewrites() {
+    return [
+      {
+        source: "/auth/:path*",
+        destination: "http://localhost:8000/:path*", // 백엔드 서버 주소로 리다이렉션
       },
-    },
+    ];
   },
 };
 

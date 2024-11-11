@@ -1,36 +1,46 @@
-"use client"
-
-import Link from "next/link";
+"use client";
 
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, registerSchemaType } from "@/service/schema/auth.schema";
-import { signInWithCredentials } from "@/server/auth";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {registerSchema, registerSchemaType} from "@/service/schema/auth.schema";
+import {signIn} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 export function RegisterForm() {
+  const router = useRouter();
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      userName: '',
-      email: '',
-      password: '',
+      username: "",
+      email: "",
+      password: "",
     },
   });
 
-  const onSubmit = (values)=> {
-    console.log(values)
-    signInWithCredentials(values)
-  }
+  const onSubmit = async (values) => {
+    const response = await signIn("credentials", {
+      redirect: false,
+      ...values,
+      action: "register",
+    });
+
+    if (response?.error) {
+      alert(`에러: ${response.error}`);
+    } else {
+      // 회원가입 성공 시 처리 로직
+      router.push("/");
+    }
+  };
 
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>Enter your email below to login to your account</CardDescription>
+        <CardTitle className="text-2xl">회원가입</CardTitle>
+        <CardDescription>회원가입</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -39,8 +49,8 @@ export function RegisterForm() {
               <div className="grid gap-2">
                 <FormField
                   control={form.control}
-                  name="userName"
-                  render={({ field }) => (
+                  name="username"
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="user-name">name</FormLabel>
                       <FormControl>
@@ -56,7 +66,7 @@ export function RegisterForm() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="email">Email</FormLabel>
                       <FormControl>
@@ -72,7 +82,7 @@ export function RegisterForm() {
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <FormControl>
@@ -84,7 +94,7 @@ export function RegisterForm() {
                 />
               </div>
 
-              <Button variant="outline" className="w-full">
+              <Button type="submit" variant="outline" className="w-full">
                 회원가입
               </Button>
             </div>
