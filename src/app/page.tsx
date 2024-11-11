@@ -1,9 +1,7 @@
-import React from "react";
-import dynamic from "next/dynamic";
 import dayjs, {Dayjs} from "dayjs";
 
 // api
-import {getCurrentWeather} from "@/lib/service/weather";
+
 
 // components
 import {
@@ -35,11 +33,9 @@ import {
   beautyTrends,
 } from "@/mocks/mockingData";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 
-export default async function WeatherFashionMain() {
-  const weatherData = await getCurrentWeather();
 
+export default function WeatherFashionMain() {
   const now: Dayjs = dayjs();
   
   return (
@@ -57,7 +53,7 @@ export default async function WeatherFashionMain() {
                 <span className="text-main-gradient">오늘의 날씨는?</span>
               </CardTitle>
             </CardHeader>
-            <CardContent><MainTodayWeather weatherData={weatherData} /></CardContent>
+            <CardContent><MainTodayWeather /></CardContent>
           </Card>
           <Card className="col-span-3">
             <CardHeader>
