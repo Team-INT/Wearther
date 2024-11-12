@@ -20,7 +20,8 @@ export function LoginForm<loginSchemaType>() {
     },
   });
 
-  const onSubmit = (values) => {
+  // 빌드 임시 타입 지정
+  const onSubmit = (values: any) => {
     // 여기서 버튼 이름에 따라 if문으로 credentials(일반) / google(구글) 체크해서 로그인
     // signInWithCredentials(values)
     // signInWithGoogle(value)
