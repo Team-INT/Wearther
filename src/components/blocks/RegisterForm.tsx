@@ -21,7 +21,7 @@ export function RegisterForm() {
     },
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     const response = await signIn("credentials", {
       redirect: false,
       ...values,

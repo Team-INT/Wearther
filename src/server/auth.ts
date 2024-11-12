@@ -2,7 +2,7 @@
 
 import {signIn, signOut, auth} from "../auth";
 
-export const signInWithCredentials = async (formData) => {
+export const signInWithCredentials = async (formData: any) => {
   await signIn("credentials", {
     username: formData.username || "",
     email: formData.email || "",
