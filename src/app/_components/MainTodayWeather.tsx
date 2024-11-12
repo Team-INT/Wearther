@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import dayjs, {Dayjs} from "dayjs";
@@ -9,7 +9,7 @@ import {GetCurrentWeather} from "@/lib/service/weather";
 import {Sun, Droplets, Wind} from "lucide-react";
 
 export default function MainTodayWeather() {
-  const { data : weatherData } = GetCurrentWeather()
+  const {data: weatherData} = GetCurrentWeather();
   const now: Dayjs = dayjs();
 
   if (!weatherData) return <div>현재 제공된 날씨 데이터가 없습니다.</div>;

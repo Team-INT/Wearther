@@ -18,10 +18,10 @@ const recommendationData = {
     related: ["블레이저", "타이트 스커트", "고급스러운 지갑", "컬러 매치"],
   },
   recommendedProducts: [
-    {id: 1, name: "클래식 블레이저", price: 89000, image: "/temp/temp_cloth.png"},
-    {id: 2, name: "실크 블라우스", price: 59000, image: "/temp/temp_cloth.png"},
-    {id: 3, name: "슬림핏 슬랙스", price: 69000, image: "/temp/temp_cloth.png"},
-    {id: 4, name: "앵클 부츠", price: 129000, image: "/temp/temp_cloth.png"},
+    {id: 1, name: "클래식 블레이저", price: 89000, image: "/temp/temp_cloth.jpg"},
+    {id: 2, name: "실크 블라우스", price: 59000, image: "/temp/temp_cloth.jpg"},
+    {id: 3, name: "슬림핏 슬랙스", price: 69000, image: "/temp/temp_cloth.jpg"},
+    {id: 4, name: "앵클 부츠", price: 129000, image: "/temp/temp_cloth.jpg"},
   ],
   productDetailUrl: "https://example.com/product/1234",
   youtubeVideos: [
@@ -33,8 +33,18 @@ const recommendationData = {
     {id: "video2", title: "결혼식 하객 패션 팁", url: "https://youtube.com/watch?v=hijklmn"},
   ],
   instagramPosts: [
-    {id: "post1", username: "@fashionista", imageUrl: "/placeholder.svg?height=200&width=200"},
-    {id: "post2", username: "@styleguru", imageUrl: "/placeholder.svg?height=200&width=200"},
+    {
+      id: "post1",
+      hashtag: "슬랙스",
+      username: "@fashionista",
+      imageUrl: "/temp/temp_instagram01.jpg",
+    },
+    {
+      id: "post2",
+      hashtag: "블레이저",
+      username: "@styleguru",
+      imageUrl: "/temp/temp_instagram02.jpg",
+    },
   ],
 };
 
@@ -119,7 +129,7 @@ export default function RecommendResultPage() {
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Youtube className="mr-2" /> 유튜브 영상
             </h3>
-            <ul className="list-disc pl-5 mb-4">
+            <ul className="grid grid-cols-2 gap-4 mb-4">
               {recommendationData.youtubeVideos.map((video) => (
                 <li key={video.id}>
                   <a
@@ -128,7 +138,8 @@ export default function RecommendResultPage() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    {video.title}
+                    <div className="w-[200px] h-[100px] bg-gray-200">썸네일</div>
+                    <p>{video.title}</p>
                   </a>
                 </li>
               ))}

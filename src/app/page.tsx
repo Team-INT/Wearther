@@ -1,7 +1,5 @@
+import React from "react";
 import dayjs, {Dayjs} from "dayjs";
-
-// api
-
 
 // components
 import {
@@ -34,10 +32,9 @@ import {
 } from "@/mocks/mockingData";
 import Link from "next/link";
 
-
-export default function WeatherFashionMain() {
+export default async function WeatherFashionMain() {
   const now: Dayjs = dayjs();
-  
+
   return (
     <>
       <MainHeroSection />
@@ -53,7 +50,9 @@ export default function WeatherFashionMain() {
                 <span className="text-main-gradient">오늘의 날씨는?</span>
               </CardTitle>
             </CardHeader>
-            <CardContent><MainTodayWeather /></CardContent>
+            <CardContent>
+              <MainTodayWeather />
+            </CardContent>
           </Card>
           <Card className="col-span-3">
             <CardHeader>
