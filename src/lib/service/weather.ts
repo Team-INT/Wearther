@@ -1,11 +1,13 @@
-export async function getCurrentWeather() {
-  const response = await fetch(`${process.env.API_BASE_URL}/weather/current`, {
-    cache: "no-store",
-  });
+"use client"
 
-  if (!response.ok) {
-    throw new Error("현재 날씨 데이터를 가져오는데 실패했습니다.");
-  }
+import apiRequest from "@/utils/api";
+import { useQuery } from "@tanstack/react-query";
 
-  return response.json();
+const weatherApi = apiRequest('/weather')
+
+export function GetCurrentWeather() {
+  return useQuery({
+    queryKey: ['test'],
+    queryFn: ()=> weatherApi.get('/current')
+  })
 }
