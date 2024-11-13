@@ -1,13 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["i.ytimg.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+      },
+    ],
   },
   async rewrites() {
+    const isProd = process.env.NODE_ENV === "production";
     return [
       {
         source: "/auth/:path*",
-        destination: "http://localhost:8000/:path*", // 백엔드 서버 주소로 리다이렉션
+        destination: isProd
+          ? "https://api.yoursite.com/auth/:path*"
+          : "http://localhost:8000/:path*",
       },
     ];
   },

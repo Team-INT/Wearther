@@ -7,7 +7,7 @@ import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import RecommendYoutube from "./_components/RecommendYoutube";
-import RecommendInstagram from "./_components/RecommendInstagram";
+import RecommendCarousel from "./_components/RecommendCarousel";
 import {ShareButton} from "./_components/ShareButton";
 
 import {Youtube, Instagram} from "lucide-react";
@@ -106,6 +106,7 @@ export default function RecommendResultPage() {
                 </div>
               ))}
             </div>
+            <RecommendCarousel slides={productInfo.recommendedProducts}  />
             <Button className="w-full mt-4" variant="outline" asChild>
               연관 상품 더보기
             </Button>
