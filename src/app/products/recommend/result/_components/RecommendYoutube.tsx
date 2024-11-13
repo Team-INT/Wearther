@@ -1,33 +1,31 @@
 import React from "react";
+import Image from "next/image";
 
-const recommendationData = {
-  youtubeVideos: [
-    {
-      id: "video1",
-      title: "50대 여성을 위한 봄 정장 스타일링",
-      url: "https://youtube.com/watch?v=abcdefg",
-    },
-    {
-      id: "video2",
-      title: "결혼식 하객 패션 팁",
-      url: "https://youtube.com/watch?v=hijklmn",
-    },
-  ],
-};
+import {getYoutubeSearchData} from "@/service/api/youtube";
 
-export default function RecommendYoutube() {
+export default async function RecommendYoutube() {
+  const {data: youtubeData} = await getYoutubeSearchData();
+  const searchResult = youtubeData.items.map((item: any) => ({
+    id: item.id.videoId,
+    title: item.snippet.title,
+    url: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+    thumbnails: item.snippet.thumbnails.high.url,
+  }));
+
+  console.log(searchResult);
+
   return (
     <ul className="grid grid-cols-2 gap-4 mb-4">
-      {recommendationData.youtubeVideos.map((video) => (
-        <li key={video.id}>
+      {searchResult.map((result: any) => (
+        <li key={result.id}>
           <a
-            href={video.url}
+            href={result.url}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline"
           >
-            <div className="w-[200px] h-[100px] bg-gray-200">썸네일</div>
-            <p>{video.title}</p>
+            <Image src={result.thumbnails} alt={result.title} width={480} height={360} />
+            <p>{result.title}</p>
           </a>
         </li>
       ))}

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 
@@ -10,8 +8,9 @@ import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import RecommendYoutube from "./_components/RecommendYoutube";
 import RecommendInstagram from "./_components/RecommendInstagram";
+import {ShareButton} from "./_components/ShareButton";
 
-import {Share2, Youtube, Instagram} from "lucide-react";
+import {Youtube, Instagram} from "lucide-react";
 
 // 응답 데이터 모킹
 const recommendationData = {
@@ -122,12 +121,7 @@ export default function RecommendResultPage() {
 
         <div className="fixed bottom-0 left-0 right-0 bg-background p-4 border-t">
           <div className="max-w-4xl mx-auto">
-            <Button
-              className="w-full"
-              onClick={() => alert("공유 기능은 아직 구현되지 않았습니다.")}
-            >
-              <Share2 className="mr-2" /> 결과 공유하기
-            </Button>
+            <ShareButton />
           </div>
         </div>
       </div>
