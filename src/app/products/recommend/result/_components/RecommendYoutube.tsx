@@ -55,7 +55,7 @@ export default async function RecommendYoutube({recommendationData}: Props) {
   const {data: youtubeData} = await getYoutubeSearchData({
     ...searchInfo,
     optimizedQuery: optimizedSearchQuery,
-  });
+  } as const);
 
   const searchResult = youtubeData.items.map((item: any) => ({
     id: item.id.videoId,

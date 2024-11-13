@@ -3,33 +3,30 @@ interface RecommendInfo {
   gender?: string;
   season?: string;
   style?: string;
+  situation?: string;
   keywords?: string[];
+  optimizedQuery?: string;
 }
 
 export async function getYoutubeSearchData(recommendInfo?: RecommendInfo) {
-  // 검색어 최적화
-  const searchKeywords = [
-    recommendInfo?.age && `${recommendInfo.age} ${recommendInfo.gender}`,
-    recommendInfo?.season,
-    recommendInfo?.style,
-    ...(recommendInfo?.keywords || []),
-  ]
-    .filter(Boolean)
-    .slice(0, 3) // 가장 관련성 높은 3개 키워드만 선택
-    .join(" ");
+  const baseQuery = recommendInfo?.optimizedQuery || "";
 
-  // 기본 검색어 설정
-  const searchQuery = searchKeywords || "패션 코디 추천";
+  // 검색어 구성
+  const searchQuery = [baseQuery, "코디", recommendInfo?.situation ? "패션" : "패션 코디"]
+    .filter(Boolean)
+    .join(" ");
 
   const params = new URLSearchParams({
     key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY as string,
     part: "snippet",
-    maxResults: "4", // 상위 4개 결과만 표시
-    q: `${searchQuery} 패션 코디`, // "패션 코디"를 항상 포함
+    maxResults: "4",
+    q: searchQuery,
     type: "video",
-    relevanceLanguage: "ko", // 한국어 결과 우선
-    videoDefinition: "high", // 고화질 영상 우선
-    order: "relevance", // 관련성 기준 정렬
+    relevanceLanguage: "ko",
+    videoDefinition: "high",
+    order: "relevance",
+    // 조회수가 일정 이상인 영상만 필터링
+    // videoDuration: "medium", // 중간 길이 영상 (4-20분)
   });
 
   try {
