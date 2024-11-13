@@ -1,12 +1,17 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+
+// components
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
+import RecommendYoutube from "./_components/RecommendYoutube";
+import RecommendInstagram from "./_components/RecommendInstagram";
+
 import {Share2, Youtube, Instagram} from "lucide-react";
-import Image from "next/image";
 
 // 응답 데이터 모킹
 const recommendationData = {
@@ -24,28 +29,6 @@ const recommendationData = {
     {id: 4, name: "앵클 부츠", price: 129000, image: "/temp/temp_cloth.jpg"},
   ],
   productDetailUrl: "https://example.com/product/1234",
-  youtubeVideos: [
-    {
-      id: "video1",
-      title: "50대 여성을 위한 봄 정장 스타일링",
-      url: "https://youtube.com/watch?v=abcdefg",
-    },
-    {id: "video2", title: "결혼식 하객 패션 팁", url: "https://youtube.com/watch?v=hijklmn"},
-  ],
-  instagramPosts: [
-    {
-      id: "post1",
-      hashtag: "슬랙스",
-      username: "@fashionista",
-      imageUrl: "/temp/temp_instagram01.jpg",
-    },
-    {
-      id: "post2",
-      hashtag: "블레이저",
-      username: "@styleguru",
-      imageUrl: "/temp/temp_instagram02.jpg",
-    },
-  ],
 };
 
 export default function RecommendResultPage() {
@@ -129,38 +112,11 @@ export default function RecommendResultPage() {
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Youtube className="mr-2" /> 유튜브 영상
             </h3>
-            <ul className="grid grid-cols-2 gap-4 mb-4">
-              {recommendationData.youtubeVideos.map((video) => (
-                <li key={video.id}>
-                  <a
-                    href={video.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    <div className="w-[200px] h-[100px] bg-gray-200">썸네일</div>
-                    <p>{video.title}</p>
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <RecommendYoutube />
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Instagram className="mr-2" /> 인스타그램 게시물
             </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {recommendationData.instagramPosts.map((post) => (
-                <div key={post.id} className="text-center">
-                  <Image
-                    width={300}
-                    height={300}
-                    src={post.imageUrl}
-                    alt={`Instagram post by ${post.username}`}
-                    className="w-full h-auto rounded"
-                  />
-                  <p className="text-sm text-muted-foreground mt-1">{post.username}</p>
-                </div>
-              ))}
-            </div>
+            <RecommendInstagram />
           </CardContent>
         </Card>
 
