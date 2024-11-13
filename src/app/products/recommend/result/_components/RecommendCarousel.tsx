@@ -4,7 +4,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Pagination, Scrollbar, A11y} from "swiper/modules";
+import {Pagination, Scrollbar, A11y} from "swiper/modules";
 import React from "react";
 import {RecommendedProduct} from "@/types/product";
 
