@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 // lib
-import { format } from "date-fns"
+import {format} from "date-fns";
 
 // components
 import {
@@ -13,62 +13,67 @@ import {
 } from "@/components/ui/select";
 import {Input} from "@/components/ui/input";
 import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 
 // react hook form + zod
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import { trendSchema, trendSchemaType } from "@/service/schema/trend.schema";
+import {trendSchema, trendSchemaType} from "@/service/schema/trend.schema";
 
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { CalendarPopover } from "@/components/composites/CalendarPopover";
-import { GetMonthlyTrendData } from "@/lib/service/trend";
-
-
+import {useMediaQuery} from "@/lib/hooks/useMediaQuery";
+import {CalendarPopover} from "@/components/composites/CalendarPopover";
+import {GetMonthlyTrendData} from "@/service/api/trend";
 
 export default function SearchFilterForm() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const getTrendMutation = GetMonthlyTrendData()
+  const getTrendMutation = GetMonthlyTrendData();
 
   const trendForm = useForm<trendSchemaType>({
     resolver: zodResolver(trendSchema),
     defaultValues: {
-      startDate: '',
-      endDate: '',
-      categoryName: '',
-      categoryParam: '',
-      timeUnit: 'day',
-      gender: '',
-      ages: '',
-      device: isDesktop ? 'desktop' : 'mobile',
+      startDate: "",
+      endDate: "",
+      categoryName: "",
+      categoryParam: "",
+      timeUnit: "day",
+      gender: "",
+      ages: "",
+      device: isDesktop ? "desktop" : "mobile",
     },
   });
 
-  const onSubmit = (value : trendSchemaType)=> {
+  const onSubmit = (value: trendSchemaType) => {
     const data = {
       ...value,
-      startDate : format(value.startDate, "yyyy-MM-dd"),
-      endDate : format(value.endDate, "yyyy-MM-dd"),
-    }
+      startDate: format(value.startDate, "yyyy-MM-dd"),
+      endDate: format(value.endDate, "yyyy-MM-dd"),
+    };
 
-    getTrendMutation.mutate(data)
-  }
+    getTrendMutation.mutate(data);
+  };
 
   return (
     <Form {...trendForm}>
       <form
         className="space-y-6"
-        onSubmit={(e)=> {
-          e.preventDefault()
-          onSubmit(trendForm.getValues())
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit(trendForm.getValues());
         }}
       >
-
         <div className="space-x-4 flex">
-          <CalendarPopover form={trendForm} valueKey={'startDate'} label={'시작 기간을 선택해주세요.'}/>
-          <CalendarPopover form={trendForm} valueKey={'endDate'} label={'끝나는 기간을 선택해주세요.'}/>
+          <CalendarPopover
+            form={trendForm}
+            valueKey={"startDate"}
+            label={"시작 기간을 선택해주세요."}
+          />
+          <CalendarPopover
+            form={trendForm}
+            valueKey={"endDate"}
+            label={"끝나는 기간을 선택해주세요."}
+          />
         </div>
-      
+
         <div className="space-x-4 flex">
           <div className="space-y-2 w-full">
             <FormField
@@ -155,52 +160,51 @@ export default function SearchFilterForm() {
 
         <div className="space-x-4 flex">
           <div className="w-full">
-          <FormField
-            control={trendForm.control}
-            name="categoryName"
-            render={({field}) => (
-              <FormItem className="space-y-2 pb-4 md:pb-8">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  관심있는 키워드를 입력해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    id="categoryName"
-                    placeholder="예) 셔츠/남방, 재킷, 코트"
-                    maxLength={20}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={trendForm.control}
+              name="categoryName"
+              render={({field}) => (
+                <FormItem className="space-y-2 pb-4 md:pb-8">
+                  <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                    관심있는 키워드를 입력해주세요.
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="categoryName"
+                      placeholder="예) 셔츠/남방, 재킷, 코트"
+                      maxLength={20}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="w-full">
-          <FormField
-            control={trendForm.control}
-            name="categoryParam"
-            render={({field}) => (
-              <FormItem className="space-y-2 pb-4 md:pb-8">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  관심있는 키워드를 입력해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    id="categoryParam"
-                    placeholder="예) 셔츠/남방, 재킷, 코트"
-                    maxLength={20}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={trendForm.control}
+              name="categoryParam"
+              render={({field}) => (
+                <FormItem className="space-y-2 pb-4 md:pb-8">
+                  <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
+                    관심있는 키워드를 입력해주세요.
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="categoryParam"
+                      placeholder="예) 셔츠/남방, 재킷, 코트"
+                      maxLength={20}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-          
         </div>
-        
+
         <Button type="submit" className="w-full">
           트렌드 조회하기
         </Button>
