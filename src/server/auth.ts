@@ -1,13 +1,10 @@
 "use server";
 
+import { loginSchemaType, registerSchemaType } from "@/service/schema/auth.schema";
 import {signIn, signOut, auth} from "../auth";
 
-export const signInWithCredentials = async (formData: any) => {
-  await signIn("credentials", {
-    username: formData.username || "",
-    email: formData.email || "",
-    password: formData.password || "",
-  });
+export const signInWithCredentials = async (formData : registerSchemaType | loginSchemaType) => {
+  await signIn("credentials", formData);
 };
 
 export const signInWithGoogle = async () => {

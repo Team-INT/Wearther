@@ -1,15 +1,20 @@
-export async function getMonthlyTrendData({params}: {params: Record<string, string>}) {
-  const queryString = new URLSearchParams(params).toString();
+"use client"
 
-  const response = await fetch(`${process.env.API_BASE_URL}/trend?${queryString}`, {
-    cache: "no-store",
-  });
+import apiRequest from "@/utils/api";
+import { useMutation } from "@tanstack/react-query";
 
-  if (!response.ok) {
-    throw new Error("현재 날씨 데이터를 가져오는데 실패했습니다.");
-  }
+const trendApi = apiRequest('/trend')
 
-  const data = await response.json();
-
-  return data;
+export function GetMonthlyTrendData() {
+  // return useQuery({
+  //   queryKey: ['trend'],
+  //   queryFn: ()=> trendApi.get('', {
+  //     params : value
+  //   })
+  // })
+  return useMutation({
+    mutationFn: (value)=> trendApi.get('', {
+      params : value
+    })
+  })
 }
