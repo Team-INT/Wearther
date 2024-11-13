@@ -1,7 +1,7 @@
 import z from "zod";
 
 const dateSchema = z.date({
-  required_error: "A date of birth is required.",
+  required_error: "A date is required.",
 })
 
 export const trendSchema = z.object({
