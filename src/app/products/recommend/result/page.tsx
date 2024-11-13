@@ -27,6 +27,9 @@ const recommendationData = {
       wind_speed: 10,
     },
   },
+};
+
+const productInfo = {
   recommendedProducts: [
     {id: 1, name: "클래식 블레이저", price: 89000, image: "/temp/temp_cloth.jpg"},
     {id: 2, name: "실크 블라우스", price: 59000, image: "/temp/temp_cloth.jpg"},
@@ -81,10 +84,10 @@ export default function RecommendResultPage() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {recommendationData.recommendedProducts.map((product) => (
+              {productInfo.recommendedProducts.map((product) => (
                 <div key={product.id} className="text-center">
                   <a
-                    href={recommendationData.productDetailUrl}
+                    href={productInfo.recommendedProducts.productDetailUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -121,7 +124,7 @@ export default function RecommendResultPage() {
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Instagram className="mr-2" /> 인스타그램 게시물
             </h3>
-            <RecommendInstagram />
+            {/* <RecommendInstagram /> */}
           </CardContent>
         </Card>
 
