@@ -7,9 +7,13 @@ import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import RecommendYoutube from "./_components/RecommendYoutube";
-import RecommendInstagram from "./_components/RecommendInstagram";
+import RecommendCarousel from "./_components/RecommendCarousel";
 import {ShareButton} from "./_components/ShareButton";
 
+// types
+import {RecommendedProduct} from "@/types/product";
+
+// icons
 import {Youtube, Instagram} from "lucide-react";
 
 // 응답 데이터 모킹
@@ -29,15 +33,56 @@ const recommendationData = {
   },
 };
 
-const productInfo = {
-  recommendedProducts: [
-    {id: 1, name: "클래식 블레이저", price: 89000, image: "/temp/temp_cloth.jpg"},
-    {id: 2, name: "실크 블라우스", price: 59000, image: "/temp/temp_cloth.jpg"},
-    {id: 3, name: "슬림핏 슬랙스", price: 69000, image: "/temp/temp_cloth.jpg"},
-    {id: 4, name: "앵클 부츠", price: 129000, image: "/temp/temp_cloth.jpg"},
-  ],
-  productDetailUrl: "https://example.com/product/1234",
-};
+const recommendedProducts: RecommendedProduct[] = [
+  {
+    id: 1,
+    title: "제품명 1",
+    price: 10000,
+    imageUrl: "/temp/temp_cloth.jpg",
+    url: "/products/1",
+    category: "의류",
+  },
+  {
+    id: 2,
+    title: "제품명 2",
+    price: 20000,
+    imageUrl: "/temp/temp_cloth.jpg",
+    url: "/products/2",
+    category: "신발",
+  },
+  {
+    id: 1,
+    title: "제품명 1",
+    price: 10000,
+    imageUrl: "/temp/temp_cloth.jpg",
+    url: "/products/1",
+    category: "의류",
+  },
+  {
+    id: 2,
+    title: "제품명 2",
+    price: 20000,
+    imageUrl: "/temp/temp_cloth.jpg",
+    url: "/products/2",
+    category: "신발",
+  },
+  {
+    id: 1,
+    title: "제품명 1",
+    price: 10000,
+    imageUrl: "/temp/temp_cloth.jpg",
+    url: "/products/1",
+    category: "의류",
+  },
+  {
+    id: 2,
+    title: "제품명 2",
+    price: 20000,
+    imageUrl: "/temp/temp_cloth.jpg",
+    url: "/products/2",
+    category: "신발",
+  },
+];
 
 export default function RecommendResultPage() {
   const boldKeywords = (text: string) => {
@@ -83,7 +128,7 @@ export default function RecommendResultPage() {
             <CardTitle>추천 상품</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {productInfo.recommendedProducts.map((product) => (
                 <div key={product.id} className="text-center">
                   <a
@@ -105,7 +150,8 @@ export default function RecommendResultPage() {
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
+            <RecommendCarousel slides={recommendedProducts} />
             <Button className="w-full mt-4" variant="outline" asChild>
               연관 상품 더보기
             </Button>
