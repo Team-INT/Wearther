@@ -20,6 +20,12 @@ const recommendationData = {
       "맑은 봄 날씨에 어울리는 단정한 정장스타일로, 다음과 같은 착장을 추천합니다. 하늘색 또는 연한 핑크색의 **블레이저**와 같은 경량 자켓 위에 **흰색 블라우스**를 매치해줍니다. 하의로는 체형에 맞는 직거울 실루엣의 **슬랙스**나 기장은 적당하고 허리선을 정리해줄 수 있는 **롱 스커트**도 좋습니다. 포멀함을 더하기 위해 반드시 심플한-h 의 가벼운 페이턴으츠 앵클부츠로 섬세하게 매칭하고, 액세서리 역시 은은한 귀걸이나 매칭되는 목걸이 등으로 포인트를 주는 것이 좋습니다.",
     keywords: ["50대 여성", "봄 결혼식", "정장 스타일", "단정한 룩", "폴리소재 빈티지 블레이저"],
     related: ["블레이저", "타이트 스커트", "고급스러운 지갑", "컬러 매치"],
+    weather: {
+      temperature: 20,
+      condition: "맑음",
+      humidity: 50,
+      wind_speed: 10,
+    },
   },
   recommendedProducts: [
     {id: 1, name: "클래식 블레이저", price: 89000, image: "/temp/temp_cloth.jpg"},
@@ -111,7 +117,7 @@ export default function RecommendResultPage() {
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Youtube className="mr-2" /> 유튜브 영상
             </h3>
-            <RecommendYoutube />
+            <RecommendYoutube recommendationData={recommendationData} />
             <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Instagram className="mr-2" /> 인스타그램 게시물
             </h3>
