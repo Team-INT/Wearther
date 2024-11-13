@@ -3,10 +3,6 @@ export interface RecommendationInfo {
   details?: string;
   keywords?: string[];
   related?: string[];
-  gender?: string;
-  age?: string;
-  situation?: string;
-  style?: string;
 }
 
 export interface SearchInfo {
@@ -16,6 +12,15 @@ export interface SearchInfo {
   situation?: string;
   style?: string;
   keywords: string[];
+}
+
+export interface WeatherResponse {
+  temperature: number;
+  condition: string;
+  humidity: number;
+  wind_speed: number;
+  description: string;
+  season: string;
 }
 
 export interface YoutubeSearchResult {

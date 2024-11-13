@@ -1,5 +1,8 @@
 import React from "react";
-import Image from "next/image";
+
+// api
+import {getProductRecommendData} from "@/service/api/product";
+import {getYoutubeSearchData} from "@/service/api/youtube";
 
 // components
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
@@ -15,6 +18,9 @@ import {RecommendedProduct} from "@/types/product";
 
 // icons
 import {Youtube, Instagram} from "lucide-react";
+
+// utils
+import {extractSearchInfo, createOptimizedSearchQuery} from "@/utils/youtubeUtils";
 
 // 응답 데이터 모킹
 const recommendationData = {
@@ -84,7 +90,18 @@ const recommendedProducts: RecommendedProduct[] = [
   },
 ];
 
-export default function RecommendResultPage() {
+export default async function RecommendResultPage() {
+  const searchInfo = extractSearchInfo(recommendationData);
+  const optimizedSearchQuery = createOptimizedSearchQuery(searchInfo);
+
+  const [productResponse, youtubeResponse] = await Promise.all([
+    getProductRecommendData("가디건"),
+    getYoutubeSearchData({
+      ...searchInfo,
+      optimizedQuery: optimizedSearchQuery,
+    } as const),
+  ]);
+
   const boldKeywords = (text: string) => {
     return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
@@ -174,7 +191,7 @@ export default function RecommendResultPage() {
           </CardContent>
         </Card>
 
-        <div className="fixed bottom-0 left-0 right-0 bg-background p-4 border-t">
+        <div className="fixed z-10 bottom-0 left-0 right-0 bg-background p-4 border-t">
           <div className="max-w-4xl mx-auto">
             <ShareButton />
           </div>
