@@ -1,24 +1,30 @@
 "use client";
 
+// api
+import {GetMonthlyTrendData} from "@/service/api/trend";
+
 // lib
 import {format} from "date-fns";
 
 // components
 import {Form} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
+import {CalendarPopover} from "@/components/composites/CalendarPopover";
+import { SelectFormField } from '@/components/composites/SelectFormField';
+
+// const
+import { AgeConst, CategoryConst, FavorKeywordConst, GenderConst, TimeUnitConst } from "@/constants/TrendConst";
+
+// hooks
+import {useMediaQuery} from "@/lib/hooks/useMediaQuery";
 
 // react hook form + zod
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {trendSchema, trendSchemaType} from "@/service/schema/trend.schema";
 
-import {useMediaQuery} from "@/lib/hooks/useMediaQuery";
-import {CalendarPopover} from "@/components/composites/CalendarPopover";
-import {GetMonthlyTrendData} from "@/service/api/trend";
-import { SelectFormField } from './../composites/SelectFormField';
-import { AgeConst, FavorKeywordConst, GenderConst, TimeUnitConst } from "@/constants/TrendConst";
 
-export default function SearchFilterForm() {
+export default function SearchTrendForm() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const getTrendMutation = GetMonthlyTrendData();
 
@@ -83,7 +89,7 @@ export default function SearchFilterForm() {
 
         <div className="space-x-4 flex">
           <div className="w-full">
-            <SelectFormField form={trendForm} valueKey="categoryName" label={'관심있는 키워드를 선택해주세요.'} data={FavorKeywordConst}/>
+            <SelectFormField form={trendForm} valueKey="categoryName" label={'대분류를 선택해주세요.'} data={CategoryConst}/>
           </div>
           <div className="w-full">
           <SelectFormField form={trendForm} valueKey="categoryParam" label={'관심있는 키워드를 선택해주세요.'} data={FavorKeywordConst}/>

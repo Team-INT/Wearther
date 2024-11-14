@@ -20,6 +20,13 @@ export const AgeConst = [
   {label: '60대 이상', value: '60'},
 ]
 
+export const CategoryConst = [
+  {label: '전체', value: '00'},
+  {label: '패션/잡화', value: '10'},
+  {label: '화장품/미용', value: '20'},
+  {label: '패션/의류', value: '30'},
+]
+
 export const FavorKeywordConst = [
   {label: '전체', value: '00'},
   {label: '셔츠/남방', value: '10'},
