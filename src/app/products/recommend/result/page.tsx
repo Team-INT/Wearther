@@ -4,6 +4,9 @@ import React from "react";
 import {getProductRecommendData} from "@/service/api/product";
 import {getYoutubeSearchData} from "@/service/api/youtube";
 
+// next
+import Link from "next/link";
+
 // components
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
@@ -14,7 +17,7 @@ import RecommendCarousel from "./_components/RecommendCarousel";
 import {ShareButton} from "./_components/ShareButton";
 
 // types
-import {RecommendedProduct} from "@/types/product";
+import {RecommendedProduct} from "@/lib/types/product";
 
 // icons
 import {Youtube, Instagram} from "lucide-react";
@@ -39,57 +42,6 @@ const recommendationData = {
   },
 };
 
-const recommendedProducts: RecommendedProduct[] = [
-  {
-    id: 1,
-    title: "제품명 1",
-    price: 10000,
-    imageUrl: "/temp/temp_cloth.jpg",
-    url: "/products/1",
-    category: "의류",
-  },
-  {
-    id: 2,
-    title: "제품명 2",
-    price: 20000,
-    imageUrl: "/temp/temp_cloth.jpg",
-    url: "/products/2",
-    category: "신발",
-  },
-  {
-    id: 1,
-    title: "제품명 1",
-    price: 10000,
-    imageUrl: "/temp/temp_cloth.jpg",
-    url: "/products/1",
-    category: "의류",
-  },
-  {
-    id: 2,
-    title: "제품명 2",
-    price: 20000,
-    imageUrl: "/temp/temp_cloth.jpg",
-    url: "/products/2",
-    category: "신발",
-  },
-  {
-    id: 1,
-    title: "제품명 1",
-    price: 10000,
-    imageUrl: "/temp/temp_cloth.jpg",
-    url: "/products/1",
-    category: "의류",
-  },
-  {
-    id: 2,
-    title: "제품명 2",
-    price: 20000,
-    imageUrl: "/temp/temp_cloth.jpg",
-    url: "/products/2",
-    category: "신발",
-  },
-];
-
 export default async function RecommendResultPage() {
   const searchInfo = extractSearchInfo(recommendationData);
   const optimizedSearchQuery = createOptimizedSearchQuery(searchInfo);
@@ -102,6 +54,8 @@ export default async function RecommendResultPage() {
     } as const),
   ]);
 
+  console.log(productResponse);
+
   const boldKeywords = (text: string) => {
     return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
@@ -110,7 +64,6 @@ export default async function RecommendResultPage() {
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">맞춤 스타일 추천 결과</h2>
-
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>추천 요약</CardTitle>
@@ -125,13 +78,14 @@ export default async function RecommendResultPage() {
             ></p>
             <div className="flex flex-wrap gap-2 mb-4">
               {recommendationData.info.keywords.map((keyword, index) => (
-                <Badge key={index} variant="secondary">
+                <Badge key={`${recommendationData.info.keywords}-${index}`} variant="secondary">
                   {keyword}
                 </Badge>
               ))}
             </div>
             <Separator className="my-4" />
             <h3 className="text-lg font-semibold mb-2">관련 아이템</h3>
+            {/* 여기에는 related 정보 */}
             <ul className="list-disc pl-5">
               {recommendationData.info.related.map((item, index) => (
                 <li key={index}>{item}</li>
@@ -139,42 +93,19 @@ export default async function RecommendResultPage() {
             </ul>
           </CardContent>
         </Card>
-
+        33
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>추천 상품</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {productInfo.recommendedProducts.map((product) => (
-                <div key={product.id} className="text-center">
-                  <a
-                    href={productInfo.recommendedProducts.productDetailUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      width={200}
-                      height={200}
-                      src={product?.image}
-                      alt={product?.name}
-                      className="w-full h-auto mb-2 rounded"
-                    />
-                  </a>
-                  <p className="font-semibold">{product.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {product.price.toLocaleString()}원
-                  </p>
-                </div>
-              ))}
-            </div> */}
-            <RecommendCarousel slides={recommendedProducts} />
-            <Button className="w-full mt-4" variant="outline" asChild>
-              연관 상품 더보기
+            {/* 여기에는 details 에서 받은 값들 사용 (boldKeywords) */}
+            <RecommendCarousel productData={productResponse.data?.items as RecommendedProduct[]} />
+            <Button asChild className="w-full mt-4" variant="outline">
+              <Link href={"/details"}>연관 상품 더보기</Link>
             </Button>
           </CardContent>
         </Card>
-
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>관련 콘텐츠</CardTitle>
@@ -190,7 +121,6 @@ export default async function RecommendResultPage() {
             {/* <RecommendInstagram /> */}
           </CardContent>
         </Card>
-
         <div className="fixed z-10 bottom-0 left-0 right-0 bg-background p-4 border-t">
           <div className="max-w-4xl mx-auto">
             <ShareButton />

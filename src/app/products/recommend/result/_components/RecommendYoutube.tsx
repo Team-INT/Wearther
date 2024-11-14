@@ -2,7 +2,7 @@ import React, {Suspense} from "react";
 import Image from "next/image";
 import {extractSearchInfo, createOptimizedSearchQuery} from "@/utils/youtubeUtils";
 import {getYoutubeSearchData} from "@/service/api/youtube";
-import {RecommendationInfo, YoutubeSearchResult} from "@/types/youtube";
+import {RecommendationInfo, YoutubeSearchResult} from "@/lib/types/youtube";
 
 interface Props {
   recommendationData: {

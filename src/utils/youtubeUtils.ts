@@ -1,6 +1,9 @@
-import {RecommendationInfo, SearchInfo, WeatherResponse} from "@/types/youtube";
+import {RecommendationInfo, SearchInfo, WeatherResponse} from "@/lib/types/youtube";
 
-export const extractSearchInfo = (recommendationData: {info?: RecommendationInfo}, weatherData?: WeatherResponse): SearchInfo => {
+export const extractSearchInfo = (
+  recommendationData: {info?: RecommendationInfo},
+  weatherData?: WeatherResponse
+): SearchInfo => {
   const summary = recommendationData?.info?.summary || "";
   const details = recommendationData?.info?.details || "";
   const keywords = recommendationData?.info?.keywords || [];
@@ -42,15 +45,15 @@ export const extractSearchInfo = (recommendationData: {info?: RecommendationInfo
 
     // 날씨 상태에 따른 키워드 추가
     const weatherKeywords = [];
-    
+
     if (weatherData.temperature >= 28) {
-      weatherKeywords.push('시원한', '여름');
+      weatherKeywords.push("시원한", "여름");
     } else if (weatherData.temperature <= 5) {
-      weatherKeywords.push('따뜻한', '겨울');
+      weatherKeywords.push("따뜻한", "겨울");
     }
 
-    if (weatherData.condition.includes('rain')) {
-      weatherKeywords.push('비오는 날');
+    if (weatherData.condition.includes("rain")) {
+      weatherKeywords.push("비오는 날");
     }
 
     return {
@@ -59,7 +62,7 @@ export const extractSearchInfo = (recommendationData: {info?: RecommendationInfo
       age,
       situation,
       style,
-      keywords: [...(recommendationData?.info?.related || []), ...weatherKeywords]
+      keywords: [...(recommendationData?.info?.related || []), ...weatherKeywords],
     };
   }
 

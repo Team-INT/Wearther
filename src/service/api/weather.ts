@@ -1,16 +1,10 @@
-import apiRequest from "@/utils/api";
+"use client";
 
-export interface WeatherResponse {
-  temperature: number;
-  condition: string;
-  humidity: number;
-  wind_speed: number;
-  description: string;
-  season: string;
-}
+import {WeatherResponse} from "@/lib/types/youtube";
+import {useQuery} from "@tanstack/react-query";
 
-export async function GetCurrentWeather() {
-  const response = await fetch(`${process.env.API_BASE_URL}/weather/current`, {
+async function fetchWeather(): Promise<WeatherResponse> {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/weather/current`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -28,4 +22,14 @@ export async function GetCurrentWeather() {
     console.error("날씨 데이터 파싱 에러:", error);
     throw new Error("날씨 데이터 형식이 올바르지 않습니다.");
   }
+}
+
+export function GetCurrentWeather() {
+  return useQuery<WeatherResponse>({
+    queryKey: ["weather", "current"],
+    queryFn: fetchWeather,
+    staleTime: 1000 * 60 * 30, // 30분
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
 }
