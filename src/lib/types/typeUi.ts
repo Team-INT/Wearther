@@ -1,5 +1,5 @@
 // 공통 컴포넌트 및 UI 타입 정의 파일
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 
@@ -27,9 +27,9 @@ export type ModalProps = AlertDialogProps | DialogProps;
 
 
 export interface CompositesFormProps<T extends FieldValues>{
-  form: UseFormReturn<T>;
+  formData: UseFormReturn<T>;
   valueKey: Path<T>;
-  label: string;
+  formLabel: string;
 };
 
 interface SelectData{
@@ -39,3 +39,8 @@ interface SelectData{
 export interface SelectFormFieldProps<T extends FieldValues> extends CompositesFormProps<T>{
   data : SelectData[]
 }
+
+export type InputFormFieldProps<T extends FieldValues> = 
+  CompositesFormProps<T> & InputHTMLAttributes<HTMLInputElement>
+
+// export type InputFormFieldProps<T extends FieldValues> = CompositesFormProps<T> & InputHTMLAttributes<HTMLInputElement>

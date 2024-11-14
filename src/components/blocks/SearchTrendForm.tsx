@@ -64,36 +64,36 @@ export default function SearchTrendForm() {
       >
         <div className="space-x-4 flex">
           <CalendarPopover
-            form={trendForm}
+            formData={trendForm}
             valueKey={"startDate"}
-            label={"시작 기간을 선택해주세요."}
+            formLabel={"시작 기간을 선택해주세요."}
           />
           <CalendarPopover
-            form={trendForm}
+            formData={trendForm}
             valueKey={"endDate"}
-            label={"끝나는 기간을 선택해주세요."}
+            formLabel={"끝나는 기간을 선택해주세요."}
           />
         </div>
 
         <div className="space-x-4 flex">
           <div className="w-full">
-            <SelectFormField form={trendForm} valueKey="timeUnit" label={'조회 기간을 선택해주세요.'} data={TimeUnitConst}/>
+            <SelectFormField formData={trendForm} valueKey="timeUnit" formLabel={'조회 기간을 선택해주세요.'} data={TimeUnitConst}/>
           </div>
 
           <div className="w-full">
-            <SelectFormField form={trendForm} valueKey="gender" label={'성별을 선택해주세요.'} data={GenderConst}/>
+            <SelectFormField formData={trendForm} valueKey="gender" formLabel={'성별을 선택해주세요.'} data={GenderConst}/>
           </div>
           <div className="w-full">
-            <SelectFormField form={trendForm} valueKey="ages" label={'나이를 선택해주세요.'} data={AgeConst}/>
+            <SelectFormField formData={trendForm} valueKey="ages" formLabel={'나이를 선택해주세요.'} data={AgeConst}/>
           </div>
         </div>
 
         <div className="space-x-4 flex">
           <div className="w-full">
-            <SelectFormField form={trendForm} valueKey="categoryName" label={'대분류를 선택해주세요.'} data={CategoryConst}/>
+            <SelectFormField formData={trendForm} valueKey="categoryName" formLabel={'대분류를 선택해주세요.'} data={CategoryConst}/>
           </div>
           <div className="w-full">
-          <SelectFormField form={trendForm} valueKey="categoryParam" label={'관심있는 키워드를 선택해주세요.'} data={FavorKeywordConst}/>
+          <SelectFormField formData={trendForm} valueKey="categoryParam" formLabel={'관심있는 키워드를 선택해주세요.'} data={FavorKeywordConst}/>
           </div>
         </div>
 
