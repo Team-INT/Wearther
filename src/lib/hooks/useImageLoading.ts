@@ -15,7 +15,7 @@ interface UseImageLoadingReturn {
 }
 
 export function useImageLoading({
-  containerHeight = "h-48",
+  containerHeight = "h-48 max-h-48",
 }: UseImageLoadingProps = {}): UseImageLoadingReturn {
   const [isLoading, setIsLoading] = useState(true);
 

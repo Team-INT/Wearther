@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React from "react";
 import Image from "next/image";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination, Scrollbar, A11y} from "swiper/modules";
@@ -50,7 +50,12 @@ function ProductCard({product}: {product: RecommendedProduct}) {
   const {isLoading, handleLoadingComplete, imageStyles} = useImageLoading();
 
   return (
-    <div className="flex flex-col h-80 bg-white rounded-lg shadow-md overflow-hidden">
+    <a
+      href={product.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex flex-col h-80 bg-white rounded-lg shadow-md overflow-hidden"
+    >
       <div className={imageStyles.container}>
         {/* 스켈레톤 UI */}
         <div className={imageStyles.skeleton} style={{transition: "opacity 0.3s ease-in-out"}} />
@@ -93,13 +98,13 @@ function ProductCard({product}: {product: RecommendedProduct}) {
               dangerouslySetInnerHTML={{__html: parseBoldText(product.title)}}
             ></h3>
             <dl>
-              <dt>{product.lprice.toLocaleString()}원</dt>
+              <dt>{Number(product.lprice).toLocaleString()}원</dt>
               <dd>{product?.brand}</dd>
             </dl>
           </>
         )}
       </div>
-    </div>
+    </a>
   );
 }
 

@@ -109,9 +109,9 @@ export default async function RecommendResultPage() {
               <Youtube className="mr-2" /> 유튜브 영상
             </h3>
             <RecommendYoutube recommendationData={recommendationData} />
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
+            {/* <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Instagram className="mr-2" /> 인스타그램 게시물
-            </h3>
+            </h3> */}
             {/* <RecommendInstagram /> */}
             <Button asChild className="w-full mt-4" variant="outline">
               <Link href={"/details"}>관련 컨텐츠 더보기</Link>
