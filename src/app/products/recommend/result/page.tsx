@@ -24,6 +24,7 @@ import {Youtube, Instagram} from "lucide-react";
 
 // utils
 import {extractSearchInfo, createOptimizedSearchQuery} from "@/utils/youtubeUtils";
+import {parseBoldText} from "@/utils/parse";
 
 // 응답 데이터 모킹
 const recommendationData = {
@@ -54,12 +55,6 @@ export default async function RecommendResultPage() {
     } as const),
   ]);
 
-  console.log(productResponse);
-
-  const boldKeywords = (text: string) => {
-    return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-  };
-
   return (
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto">
@@ -74,7 +69,7 @@ export default async function RecommendResultPage() {
           <CardContent>
             <p
               className="mb-4"
-              dangerouslySetInnerHTML={{__html: boldKeywords(recommendationData.info.details)}}
+              dangerouslySetInnerHTML={{__html: parseBoldText(recommendationData.info.details)}}
             ></p>
             <div className="flex flex-wrap gap-2 mb-4">
               {recommendationData.info.keywords.map((keyword, index) => (
@@ -118,6 +113,9 @@ export default async function RecommendResultPage() {
               <Instagram className="mr-2" /> 인스타그램 게시물
             </h3>
             {/* <RecommendInstagram /> */}
+            <Button asChild className="w-full mt-4" variant="outline">
+              <Link href={"/details"}>관련 컨텐츠 더보기</Link>
+            </Button>
           </CardContent>
         </Card>
         <div className="fixed z-10 bottom-0 left-0 right-0 bg-background p-4 border-t">

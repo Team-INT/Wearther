@@ -8,6 +8,7 @@ import {RecommendedProduct} from "@/lib/types/product";
 
 // utils
 import {cn} from "@/lib/utils";
+import {parseBoldText} from "@/utils/parse";
 
 // hooks
 import {useImageLoading} from "@/lib/hooks/useImageLoading";
@@ -33,7 +34,7 @@ export default function RecommendCarousel({productData}: {productData: Recommend
           spaceBetween: 30,
         },
       }}
-      pagination={{clickable: true}}
+      // pagination={{clickable: true}}
       className="relative px-8"
     >
       {productData?.map((slide, index) => (
@@ -62,6 +63,7 @@ function ProductCard({product}: {product: RecommendedProduct}) {
           alt={product.title}
           className={imageStyles.image}
           style={{transition: "opacity 0.3s ease-in-out"}}
+          loading="lazy"
           onLoadingComplete={handleLoadingComplete}
         />
 
@@ -86,11 +88,50 @@ function ProductCard({product}: {product: RecommendedProduct}) {
           </>
         ) : (
           <>
-            <h3 className="font-medium text-gray-900 line-clamp-2">{product.title}</h3>
-            <p className="font-bold text-lg">{product.lprice.toLocaleString()}원</p>
+            <h3
+              className="font-medium text-gray-900 line-clamp-2"
+              dangerouslySetInnerHTML={{__html: parseBoldText(product.title)}}
+            ></h3>
+            <dl>
+              <dt>{product.lprice.toLocaleString()}원</dt>
+              <dd>{product?.brand}</dd>
+            </dl>
           </>
         )}
       </div>
     </div>
   );
 }
+
+// {
+//   "title": "헬스복 남자 <b>트레이닝복</b> 바지 <b>츄리닝</b> 트레이닝 트랙 조거팬츠 헬스 운동 체육복 런닝 짐웨어",
+//   "link": "https://smartstore.naver.com/main/products/9935274482",
+//   "image": "https://shopping-phinf.pstatic.net/main_8747977/87479776756.1.jpg",
+//   "lprice": "10900",
+//   "hprice": "",
+//   "mallName": "SOLID",
+//   "productId": "87479776756",
+//   "productType": "2",
+//   "brand": "솔리드",
+//   "maker": "",
+//   "category1": "패션의류",
+//   "category2": "남성의류",
+//   "category3": "트레이닝복",
+//   "category4": ""
+// },
+// {
+//   "title": "나이키 드라이핏 스우시 트레이닝 팬츠 운동 런닝 아디다스 <b>츄리닝</b> 일자 조거 기모 긴바지",
+//   "link": "https://smartstore.naver.com/main/products/5370976277",
+//   "image": "https://shopping-phinf.pstatic.net/main_8291546/82915469411.6.jpg",
+//   "lprice": "29800",
+//   "hprice": "",
+//   "mallName": "스포티제이",
+//   "productId": "82915469411",
+//   "productType": "2",
+//   "brand": "나이키",
+//   "maker": "나이키",
+//   "category1": "패션의류",
+//   "category2": "남성의류",
+//   "category3": "트레이닝복",
+//   "category4": ""
+// },

@@ -1,10 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import {ErrorBoundary} from "react-error-boundary";
 import {YoutubeSearchResult} from "@/lib/types/youtube";
-
-// hooks
 import {useImageLoading} from "@/lib/hooks/useImageLoading";
+
+const ErrorFallback = ({error}: {error: Error}) => (
+  <div className="p-4 border border-red-200 rounded-lg bg-red-50">
+    <p className="text-red-600">유튜브 영상을 불러오는데 실패했습니다.</p>
+    <p className="text-sm text-red-500">{error.message}</p>
+  </div>
+);
 
 const YoutubeVideo = ({result}: {result: YoutubeSearchResult}) => {
   const {isLoading, handleLoadingComplete, imageStyles} = useImageLoading({
@@ -19,10 +25,7 @@ const YoutubeVideo = ({result}: {result: YoutubeSearchResult}) => {
       className="text-blue-600 hover:underline"
     >
       <div className={imageStyles.container}>
-        {/* 스켈레톤 UI */}
         <div className={imageStyles.skeleton} style={{transition: "opacity 0.3s ease-in-out"}} />
-
-        {/* 실제 이미지 */}
         <Image
           src={result.thumbnails}
           alt={result.title}
@@ -43,7 +46,7 @@ const YoutubeVideo = ({result}: {result: YoutubeSearchResult}) => {
   );
 };
 
-const YoutubeVideoList = ({searchResult}: {searchResult: YoutubeSearchResult[]}) => (
+const VideoList = ({searchResult}: {searchResult: YoutubeSearchResult[]}) => (
   <ul className="grid grid-cols-2 gap-4 mb-4">
     {searchResult.map((result) => (
       <li key={result.id}>
@@ -53,4 +56,10 @@ const YoutubeVideoList = ({searchResult}: {searchResult: YoutubeSearchResult[]})
   </ul>
 );
 
-export default YoutubeVideoList;
+export default function YoutubeVideoList({searchResult}: {searchResult: YoutubeSearchResult[]}) {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <VideoList searchResult={searchResult} />
+    </ErrorBoundary>
+  );
+}
