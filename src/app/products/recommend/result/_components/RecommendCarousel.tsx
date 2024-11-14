@@ -39,19 +39,18 @@ export default function RecommendCarousel({productData, error}: ProductCarouselP
     <Swiper
       modules={[Pagination, Scrollbar, A11y]}
       spaceBetween={20}
-      slidesPerView={1}
+      slidesPerView={1.5}
       breakpoints={{
         640: {
           slidesPerView: 2,
           spaceBetween: 20,
         },
         1024: {
-          slidesPerView: 3.5,
+          slidesPerView: 2.5,
           spaceBetween: 30,
         },
       }}
-      // pagination={{clickable: true}}
-      className="relative px-8"
+      className="relative"
     >
       {productData?.map((slide, index) => (
         <SwiperSlide key={`${slide.title}-${index}`}>
@@ -115,7 +114,7 @@ function ProductCard({product}: {product: RecommendedProduct}) {
             ></h3>
             <dl className="space-y-2">
               <dt className="text-primary font-semibold">
-                {Number(product.lprice).toLocaleString() + "&nbsp;원"}
+                {Number(product.lprice).toLocaleString()}&nbsp;원
               </dt>
               <dd>{product?.brand}</dd>
               <dd className="flex gap-1 text-sm">

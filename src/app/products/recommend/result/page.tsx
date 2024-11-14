@@ -9,22 +9,17 @@ import Link from "next/link";
 
 // components
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
 import RecommendYoutube from "./_components/RecommendYoutube";
 import RecommendCarousel from "./_components/RecommendCarousel";
+import RecommendMessage from "./_components/RecommendMessage";
 import {ShareButton} from "./_components/ShareButton";
 
 // types
 import {RecommendedProduct} from "@/lib/types/product";
 
-// icons
-import {Youtube, Instagram} from "lucide-react";
-
 // utils
 import {extractSearchInfo, createOptimizedSearchQuery} from "@/utils/youtubeUtils";
-import {parseBoldText} from "@/utils/parse";
 
 // 응답 데이터 모킹
 const recommendationData = {
@@ -96,25 +91,7 @@ export default async function RecommendResultPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p
-              className="mb-4"
-              dangerouslySetInnerHTML={{__html: parseBoldText(recommendationData.info.details)}}
-            ></p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {recommendationData.info.keywords.map((keyword, index) => (
-                <Badge key={`${recommendationData.info.keywords}-${index}`} variant="secondary">
-                  {keyword}
-                </Badge>
-              ))}
-            </div>
-            <Separator className="my-4" />
-            <h3 className="text-lg font-semibold mb-2">관련 아이템</h3>
-            {/* 여기에는 related 정보 */}
-            <ul className="list-disc pl-5">
-              {recommendationData.info.related.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+            <RecommendMessage recommendationData={recommendationData} />
           </CardContent>
         </Card>
         <Card className="mb-8">
@@ -133,7 +110,9 @@ export default async function RecommendResultPage() {
               }}
             />
             <Button asChild className="w-full mt-4" variant="outline">
-              <Link href="/details">{productAllFailed ? "다시 검색하기" : "연관 상품 더보기"}</Link>
+              <Link href="./details">
+                {productAllFailed ? "다시 검색하기" : "연관 상품 더보기"}
+              </Link>
             </Button>
           </CardContent>
         </Card>
@@ -142,16 +121,14 @@ export default async function RecommendResultPage() {
             <CardTitle>관련 콘텐츠</CardTitle>
           </CardHeader>
           <CardContent>
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
-              <Youtube className="mr-2" /> 유튜브 영상
-            </h3>
+            <h3 className="text-lg font-semibold mb-2 flex items-center">유튜브 영상</h3>
             <RecommendYoutube recommendationData={recommendationData} />
             {/* <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Instagram className="mr-2" /> 인스타그램 게시물
             </h3> */}
             {/* <RecommendInstagram /> */}
             <Button asChild className="w-full mt-4" variant="outline">
-              <Link href={"/details"}>관련 컨텐츠 더보기</Link>
+              <Link href={"./details"}>관련 컨텐츠 더보기</Link>
             </Button>
           </CardContent>
         </Card>
