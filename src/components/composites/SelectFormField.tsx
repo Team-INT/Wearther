@@ -20,14 +20,18 @@ import { FieldValues } from "react-hook-form";
 import { SelectFormFieldProps } from "@/lib/types/typeUi";
 
 export function SelectFormField<T extends FieldValues>({
-  form,
+  formData,
   valueKey,
-  label,
+  formLabel,
   data
 }: SelectFormFieldProps<T>) {
+  const { formState } = formData
+  const { errors } = formState
+
   return (
-    <FormField
-      control={form.control}
+    <div className="relative pb-6">
+      <FormField
+      control={formData.control}
       name={valueKey}
       render={({ field }) => (
         <FormItem className="space-y-2">
@@ -35,7 +39,7 @@ export function SelectFormField<T extends FieldValues>({
             className="text-sm font-medium text-muted-foreground"
             htmlFor="name"
           >
-            {label ?? ""}
+            {formLabel ?? ""}
           </FormLabel>
           <FormControl>
             <Select onValueChange={field.onChange} value={field.value}>
@@ -51,9 +55,12 @@ export function SelectFormField<T extends FieldValues>({
               </SelectContent>
             </Select>
           </FormControl>
-          <FormMessage />
+          {errors[valueKey] && (
+            <FormMessage className="absolute bottom-0 right-0 text-sm text-destructive mt-1">{errors[valueKey].message as string}</FormMessage>
+          )}
         </FormItem>
       )}
     />
+    </div>
   );
 }
