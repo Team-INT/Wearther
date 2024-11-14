@@ -1,4 +1,4 @@
-import {RequestOptionsType, RequestType} from "@/lib/types/TypeApi";
+import { RequestOptionsType, RequestType } from "@/lib/types/TypeApi"
 
 export default function apiRequest(basePoint: string, url?: string) {
   const baseUrl = url ? url : process.env.API_BASE_URL || "http://192.168.0.31:8000";

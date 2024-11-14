@@ -1,11 +1,11 @@
 
-import SearchFilterForm from "@/components/blocks/SearchFilterForm";
+import SearchTrendForm from "@/components/blocks/SearchTrendForm";
 
 
 export default function TrendPage() {
   return (
     <>
-      <SearchFilterForm />
+      <SearchTrendForm />
     </>
   );
 }
