@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {useState, useEffect} from "react";
+import {useState} from "react";
+
 
 // components
 import {Button} from "@/components/ui/button";
@@ -21,172 +22,15 @@ import {
   DrawerTrigger,
   DrawerDescription,
 } from "@/components/ui/drawer";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {Input} from "@/components/ui/input";
-import {FormField, FormLabel, FormControl, FormMessage, Form, FormItem} from "@/components/ui/form";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import { TrendInfoForm } from "@/components/blocks/TrendInfoForm";
 
 // icon
 import {Info} from "lucide-react";
 
-// schema
-import {recommendTrendSchema, recommendTrendSchemaType} from "@/service/schema/recommend.schema";
+// hooks
+import {useMediaQuery} from "@/lib/hooks/useMediaQuery";
 
-// react hook form + zod
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-
-const useMediaQuery = (query: string) => {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
-    const listener = () => setMatches(media.matches);
-    media.addListener(listener);
-    return () => media.removeListener(listener);
-  }, [matches, query]);
-
-  return matches;
-};
-
-const CustomizationForm = ({onSubmit}: {onSubmit: () => void}) => {
-  const recommendTrendForm = useForm<recommendTrendSchemaType>({
-    resolver: zodResolver(recommendTrendSchema),
-    defaultValues: {
-      age: "",
-      gender: "",
-      category: "",
-      keyword: "",
-    },
-  });
-
-  return (
-    <Form {...recommendTrendForm}>
-      <form
-        className="space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit();
-        }}
-      >
-        <div className="space-y-2">
-          <FormField
-            control={recommendTrendForm.control}
-            name="age"
-            render={({field}) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  연령대를 선택해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Select>
-                    <SelectTrigger id="age">
-                      <SelectValue placeholder="선택해주세요" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10">10대</SelectItem>
-                      <SelectItem value="20">20대</SelectItem>
-                      <SelectItem value="30">30대</SelectItem>
-                      <SelectItem value="40">40대</SelectItem>
-                      <SelectItem value="50">50대</SelectItem>
-                      <SelectItem value="60">60대 이상</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="space-y-2">
-          <FormField
-            control={recommendTrendForm.control}
-            name="gender"
-            render={({field}) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  성별을 선택해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Select>
-                    <SelectTrigger id="age">
-                      <SelectValue placeholder="선택해주세요" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="f">남성</SelectItem>
-                      <SelectItem value="m">여성</SelectItem>
-                      <SelectItem value="other">기타</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="space-y-2">
-          <FormField
-            control={recommendTrendForm.control}
-            name="gender"
-            render={({field}) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  대분류를 선택해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Select>
-                    <SelectTrigger id="age">
-                      <SelectValue placeholder="선택해주세요" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="50000001">패션/잡화</SelectItem>
-                      <SelectItem value="50000002">화장품/미용</SelectItem>
-                      <SelectItem value="50000008">패션/의류</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={recommendTrendForm.control}
-            name="keyword"
-            render={({field}) => (
-              <FormItem className="space-y-2 pb-4 md:pb-8">
-                <FormLabel className="text-sm font-medium text-muted-foreground" htmlFor="name">
-                  관심있는 키워드를 입력해주세요.
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    id="name"
-                    placeholder="예) 셔츠/남방, 재킷, 코트"
-                    maxLength={20}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button type="submit" className="w-full">
-          맞춤 정보 저장하기
-        </Button>
-      </form>
-    </Form>
-  );
-};
 
 export default function MainHeroSection() {
   const [open, setOpen] = useState(false);
@@ -233,7 +77,7 @@ export default function MainHeroSection() {
                   </Tooltip>
                 </TooltipProvider>
               </DialogDescription>
-              <CustomizationForm onSubmit={handleCustomizationSubmit} />
+              <TrendInfoForm onSubmit={handleCustomizationSubmit} />
             </DialogContent>
           </Dialog>
         ) : (
@@ -249,7 +93,7 @@ export default function MainHeroSection() {
                 로그인을 하면 더욱 간편하게 정보를 볼 수 있어요.
               </DrawerDescription>
               <div className="px-4 py-2">
-                <CustomizationForm onSubmit={handleCustomizationSubmit} />
+                <TrendInfoForm onSubmit={handleCustomizationSubmit} />
               </div>
             </DrawerContent>
           </Drawer>
