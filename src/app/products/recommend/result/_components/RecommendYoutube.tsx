@@ -1,41 +1,16 @@
 import React, {Suspense} from "react";
-import Image from "next/image";
 import {extractSearchInfo, createOptimizedSearchQuery} from "@/utils/youtubeUtils";
 import {getYoutubeSearchData} from "@/service/api/youtube";
-import {RecommendationInfo, YoutubeSearchResult} from "@/lib/types/youtube";
+import {RecommendationInfo} from "@/lib/types/youtube";
+
+// components
+import YoutubeVideoList from "./YoutubeVideoList";
 
 interface Props {
   recommendationData: {
     info?: RecommendationInfo;
   };
 }
-
-const YoutubeVideoList = ({searchResult}: {searchResult: YoutubeSearchResult[]}) => (
-  <ul className="grid grid-cols-2 gap-4 mb-4">
-    {searchResult.map((result) => (
-      <li key={result.id}>
-        <a
-          href={result.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
-        >
-          <div className="relative aspect-video">
-            <Image
-              src={result.thumbnails}
-              alt={result.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              loading="lazy"
-            />
-          </div>
-          <p className="mt-2 line-clamp-2">{result.title}</p>
-        </a>
-      </li>
-    ))}
-  </ul>
-);
 
 const SkeletonLoader = () => (
   <ul className="grid grid-cols-2 gap-4 mb-4">

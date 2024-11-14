@@ -1,15 +1,21 @@
 "use client";
 
-// next
+import React, {useState} from "react";
 import Image from "next/image";
-
 import {Swiper, SwiperSlide} from "swiper/react";
+import {Pagination, Scrollbar, A11y} from "swiper/modules";
+import {RecommendedProduct} from "@/lib/types/product";
+
+// utils
+import {cn} from "@/lib/utils";
+
+// hooks
+import {useImageLoading} from "@/lib/hooks/useImageLoading";
+
+// styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {Pagination, Scrollbar, A11y} from "swiper/modules";
-import React from "react";
-import {RecommendedProduct} from "@/lib/types/product";
 
 export default function RecommendCarousel({productData}: {productData: RecommendedProduct[]}) {
   return (
@@ -23,7 +29,7 @@ export default function RecommendCarousel({productData}: {productData: Recommend
           spaceBetween: 20,
         },
         1024: {
-          slidesPerView: 4,
+          slidesPerView: 3.5,
           spaceBetween: 30,
         },
       }}
@@ -32,43 +38,59 @@ export default function RecommendCarousel({productData}: {productData: Recommend
     >
       {productData?.map((slide, index) => (
         <SwiperSlide key={`${slide.title}-${index}`}>
-          <div className="flex flex-col h-80 bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="relative h-48">
-              <Image
-                width={200}
-                height={200}
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-              />
-              <span className="absolute top-2 left-2 bg-gray-800 text-white px-2 py-1 text-sm rounded">
-                {slide.category1}
-              </span>
-            </div>
-            <div className="p-4 flex flex-col gap-1">
-              <h3 className="font-medium text-gray-900 line-clamp-2">{slide.title}</h3>
-              <p className="font-bold text-lg">{slide.lprice.toLocaleString()}원</p>
-            </div>
-          </div>
+          <ProductCard product={slide} />
         </SwiperSlide>
       ))}
     </Swiper>
   );
 }
 
-// {
-//   "title": "지프 <b>트레이닝복</b> 후디 <b>츄리닝</b> 기모 바지 팬츠",
-//   "link": "https://smartstore.naver.com/main/products/10419402411",
-//   "image": "https://shopping-phinf.pstatic.net/main_8796390/87963907397.1.jpg",
-//   "lprice": "36900",
-//   "hprice": "",
-//   "mallName": "소네바",
-//   "productId": "87963907397",
-//   "productType": "2",
-//   "brand": "지프",
-//   "maker": "제이엔지",
-//   "category1": "패션의류",
-//   "category2": "남성의류",
-//   "category3": "트레이닝복",
-//   "category4": ""
-// },
+function ProductCard({product}: {product: RecommendedProduct}) {
+  const {isLoading, handleLoadingComplete, imageStyles} = useImageLoading();
+
+  return (
+    <div className="flex flex-col h-80 bg-white rounded-lg shadow-md overflow-hidden">
+      <div className={imageStyles.container}>
+        {/* 스켈레톤 UI */}
+        <div className={imageStyles.skeleton} style={{transition: "opacity 0.3s ease-in-out"}} />
+
+        {/* 실제 이미지 */}
+        <Image
+          width={200}
+          height={200}
+          src={product.image}
+          alt={product.title}
+          className={imageStyles.image}
+          style={{transition: "opacity 0.3s ease-in-out"}}
+          onLoadingComplete={handleLoadingComplete}
+        />
+
+        {/* 카테고리 뱃지 */}
+        <span
+          className={cn(
+            "absolute top-2 left-2 bg-gray-800 text-white px-2 py-1 text-sm rounded",
+            isLoading ? "opacity-0" : "opacity-100"
+          )}
+          style={{transition: "opacity 0.3s ease-in-out"}}
+        >
+          {product.category1}
+        </span>
+      </div>
+
+      {/* 상품 정보 */}
+      <div className="p-4 flex flex-col gap-1">
+        {isLoading ? (
+          <>
+            <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+            <div className="h-6 bg-gray-200 rounded w-1/2" />
+          </>
+        ) : (
+          <>
+            <h3 className="font-medium text-gray-900 line-clamp-2">{product.title}</h3>
+            <p className="font-bold text-lg">{product.lprice.toLocaleString()}원</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

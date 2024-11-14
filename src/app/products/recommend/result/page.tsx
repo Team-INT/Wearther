@@ -93,7 +93,6 @@ export default async function RecommendResultPage() {
             </ul>
           </CardContent>
         </Card>
-        33
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>추천 상품</CardTitle>
