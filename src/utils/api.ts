@@ -1,4 +1,4 @@
-import { RequestOptionsType, RequestType } from "@/types/TypeApi"
+import { RequestOptionsType, RequestType } from "@/lib/types/TypeApi"
 
 
 
