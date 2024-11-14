@@ -25,8 +25,12 @@ export function SelectFormField<T extends FieldValues>({
   label,
   data
 }: SelectFormFieldProps<T>) {
+  const { formState } = form
+  const { errors } = formState
+
   return (
-    <FormField
+    <div className="relative pb-6">
+      <FormField
       control={form.control}
       name={valueKey}
       render={({ field }) => (
@@ -51,9 +55,12 @@ export function SelectFormField<T extends FieldValues>({
               </SelectContent>
             </Select>
           </FormControl>
-          <FormMessage />
+          {errors[valueKey] && (
+            <FormMessage className="absolute bottom-0 right-0 text-sm text-destructive mt-1">{errors[valueKey].message as string}</FormMessage>
+          )}
         </FormItem>
       )}
     />
+    </div>
   );
 }

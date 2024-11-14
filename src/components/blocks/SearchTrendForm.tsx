@@ -31,18 +31,19 @@ export default function SearchTrendForm() {
   const trendForm = useForm<trendSchemaType>({
     resolver: zodResolver(trendSchema),
     defaultValues: {
-      startDate: "",
-      endDate: "",
+      startDate: undefined,
+      endDate: undefined,
       categoryName: "",
       categoryParam: "",
       timeUnit: "day",
-      gender: "",
+      gender: "other",
       ages: "",
       device: isDesktop ? "desktop" : "mobile",
     },
   });
 
   const onSubmit = (value: trendSchemaType) => {
+    console.log(value)
     const data = {
       ...value,
       startDate: format(value.startDate, "yyyy-MM-dd"),
@@ -55,10 +56,10 @@ export default function SearchTrendForm() {
   return (
     <Form {...trendForm}>
       <form
-        className="space-y-6"
+        className="space-y-2"
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(trendForm.getValues());
+          trendForm.handleSubmit(onSubmit)()
         }}
       >
         <div className="space-x-4 flex">
@@ -75,14 +76,14 @@ export default function SearchTrendForm() {
         </div>
 
         <div className="space-x-4 flex">
-          <div className="space-y-2 w-full">
+          <div className="w-full">
             <SelectFormField form={trendForm} valueKey="timeUnit" label={'조회 기간을 선택해주세요.'} data={TimeUnitConst}/>
           </div>
 
-          <div className="space-y-2 w-full">
+          <div className="w-full">
             <SelectFormField form={trendForm} valueKey="gender" label={'성별을 선택해주세요.'} data={GenderConst}/>
           </div>
-          <div className="space-y-2 w-full">
+          <div className="w-full">
             <SelectFormField form={trendForm} valueKey="ages" label={'나이를 선택해주세요.'} data={AgeConst}/>
           </div>
         </div>

@@ -30,15 +30,19 @@ import { cn } from "@/lib/utils";
 import { CompositesFormProps } from "@/lib/types/typeUi";
 
 export function CalendarPopover<T extends FieldValues>({ form, valueKey, label } : CompositesFormProps<T>) {
+  const { formState } = form
+  const { errors } = formState
+
   return (
-    <FormField
+    <div className="relative pb-6">
+      <FormField
       control={form.control}
       name={valueKey}
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel
             className="text-sm font-medium text-muted-foreground"
-            htmlFor="name"
+            htmlFor={valueKey}
           >
             {label ?? ""}
           </FormLabel>
@@ -73,9 +77,13 @@ export function CalendarPopover<T extends FieldValues>({ form, valueKey, label }
               />
             </PopoverContent>
           </Popover>
-          <FormMessage />
+          {errors[valueKey] && (
+            <FormMessage className="absolute bottom-0 right-0 text-sm text-destructive mt-1">{errors[valueKey].message as string}</FormMessage>
+          )}
         </FormItem>
       )}
     />
+    </div>
+    
   );
 }
