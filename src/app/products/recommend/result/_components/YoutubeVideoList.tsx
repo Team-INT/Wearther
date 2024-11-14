@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import {ErrorBoundary} from "react-error-boundary";
 import {YoutubeSearchResult} from "@/lib/types/youtube";
@@ -22,7 +21,7 @@ const YoutubeVideo = ({result}: {result: YoutubeSearchResult}) => {
       href={result.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-blue-600 hover:underline"
+      className="text-primary hover:underline"
     >
       <div className={imageStyles.container}>
         <div className={imageStyles.skeleton} style={{transition: "opacity 0.3s ease-in-out"}} />
