@@ -9,22 +9,17 @@ import Link from "next/link";
 
 // components
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
 import RecommendYoutube from "./_components/RecommendYoutube";
 import RecommendCarousel from "./_components/RecommendCarousel";
+import RecommendMessage from "./_components/RecommendMessage";
 import {ShareButton} from "./_components/ShareButton";
 
 // types
 import {RecommendedProduct} from "@/lib/types/product";
 
-// icons
-import {Youtube, Instagram} from "lucide-react";
-
 // utils
 import {extractSearchInfo, createOptimizedSearchQuery} from "@/utils/youtubeUtils";
-import {parseBoldText} from "@/utils/parse";
 
 // 응답 데이터 모킹
 const recommendationData = {
@@ -43,17 +38,46 @@ const recommendationData = {
   },
 };
 
+// 타입 에러 방지를 위한 인터페이스 추가
+interface ProductResponse {
+  success: boolean;
+  data?: {
+    lastBuildDate: string;
+    total: number;
+    start: number;
+    display: number;
+    items: RecommendedProduct[];
+  };
+  status?: number;
+  message?: string;
+}
 export default async function RecommendResultPage() {
   const searchInfo = extractSearchInfo(recommendationData);
   const optimizedSearchQuery = createOptimizedSearchQuery(searchInfo);
 
-  const [productResponse, youtubeResponse] = await Promise.all([
-    getProductRecommendData("가디건"),
-    getYoutubeSearchData({
-      ...searchInfo,
-      optimizedQuery: optimizedSearchQuery,
-    } as const),
-  ]);
+  const getReleatedData = recommendationData.info.related.map((item) => {
+    console.log(item);
+    return getProductRecommendData(item);
+  });
+
+  const productResponses: ProductResponse[] = await Promise.all(getReleatedData);
+
+  const productAllFailed = productResponses.every((response) => !response.success);
+  const productErrorData =
+    productAllFailed && productResponses[0]
+      ? {
+          status: productResponses[0].status,
+          message: productResponses[0].message,
+        }
+      : undefined;
+
+  // const [productResponse, youtubeResponse] = await Promise.all([
+  //   getProductRecommendData(recommendationData.info.related[0]),
+  //   getYoutubeSearchData({
+  //     ...searchInfo,
+  //     optimizedQuery: optimizedSearchQuery,
+  //   } as const),
+  // ]);
 
   return (
     <div className="min-h-screen">
@@ -67,25 +91,7 @@ export default async function RecommendResultPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p
-              className="mb-4"
-              dangerouslySetInnerHTML={{__html: parseBoldText(recommendationData.info.details)}}
-            ></p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {recommendationData.info.keywords.map((keyword, index) => (
-                <Badge key={`${recommendationData.info.keywords}-${index}`} variant="secondary">
-                  {keyword}
-                </Badge>
-              ))}
-            </div>
-            <Separator className="my-4" />
-            <h3 className="text-lg font-semibold mb-2">관련 아이템</h3>
-            {/* 여기에는 related 정보 */}
-            <ul className="list-disc pl-5">
-              {recommendationData.info.related.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+            <RecommendMessage recommendationData={recommendationData} />
           </CardContent>
         </Card>
         <Card className="mb-8">
@@ -94,9 +100,19 @@ export default async function RecommendResultPage() {
           </CardHeader>
           <CardContent>
             {/* 여기에는 details 에서 받은 값들 사용 (boldKeywords) */}
-            <RecommendCarousel productData={productResponse.data?.items as RecommendedProduct[]} />
+            <RecommendCarousel
+              productData={
+                productAllFailed ? [] : productResponses.flatMap((r) => r.data?.items || [])
+              }
+              error={{
+                status: productErrorData?.status ?? 0,
+                message: productErrorData?.message ?? "",
+              }}
+            />
             <Button asChild className="w-full mt-4" variant="outline">
-              <Link href={"/details"}>연관 상품 더보기</Link>
+              <Link href="./details">
+                {productAllFailed ? "다시 검색하기" : "연관 상품 더보기"}
+              </Link>
             </Button>
           </CardContent>
         </Card>
@@ -105,16 +121,14 @@ export default async function RecommendResultPage() {
             <CardTitle>관련 콘텐츠</CardTitle>
           </CardHeader>
           <CardContent>
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
-              <Youtube className="mr-2" /> 유튜브 영상
-            </h3>
+            <h3 className="text-lg font-semibold mb-2 flex items-center">유튜브 영상</h3>
             <RecommendYoutube recommendationData={recommendationData} />
             {/* <h3 className="text-lg font-semibold mb-2 flex items-center">
               <Instagram className="mr-2" /> 인스타그램 게시물
             </h3> */}
             {/* <RecommendInstagram /> */}
             <Button asChild className="w-full mt-4" variant="outline">
-              <Link href={"/details"}>관련 컨텐츠 더보기</Link>
+              <Link href={"./details"}>관련 컨텐츠 더보기</Link>
             </Button>
           </CardContent>
         </Card>

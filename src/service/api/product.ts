@@ -11,7 +11,7 @@ export async function getProductRecommendData(query: string) {
 
     const params = new URLSearchParams({
       query,
-      display: "6",
+      display: "2",
       start: "1",
       exclude: "used:rental",
     });
@@ -32,12 +32,23 @@ export async function getProductRecommendData(query: string) {
     }
 
     const data = await res.json();
+
+    // 검색 결과가 없는 경우 체크
+    if (!data.items || data.items.length === 0) {
+      return {
+        success: false,
+        status: 404,
+        message: "검색 결과가 없습니다.",
+      };
+    }
+
     return {success: true, data};
   } catch (error) {
     console.error("상품 추천 데이터 조회 실패:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "알 수 없는 에러가 발생했습니다.",
+      status: 500,
+      message: error instanceof Error ? error.message : "알 수 없는 에러가 발생했습니다.",
     };
   }
 }

@@ -18,24 +18,39 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export default function RecommendCarousel({productData}: {productData: RecommendedProduct[]}) {
+interface ProductCarouselProps {
+  productData?: RecommendedProduct[];
+  error?: {
+    status: number;
+    message: string;
+  };
+}
+
+export default function RecommendCarousel({productData, error}: ProductCarouselProps) {
+  // if (error || !productData) {
+  //   return (
+  //     <div className="flex justify-center items-center h-40 text-gray-500">
+  //       현재 매칭되는 추천 상품이 존재하지 않습니다.
+  //     </div>
+  //   );
+  // }
+
   return (
     <Swiper
       modules={[Pagination, Scrollbar, A11y]}
       spaceBetween={20}
-      slidesPerView={1}
+      slidesPerView={1.5}
       breakpoints={{
         640: {
           slidesPerView: 2,
           spaceBetween: 20,
         },
         1024: {
-          slidesPerView: 3.5,
+          slidesPerView: 2.5,
           spaceBetween: 30,
         },
       }}
-      // pagination={{clickable: true}}
-      className="relative px-8"
+      className="relative"
     >
       {productData?.map((slide, index) => (
         <SwiperSlide key={`${slide.title}-${index}`}>
@@ -54,7 +69,7 @@ function ProductCard({product}: {product: RecommendedProduct}) {
       href={product.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex flex-col h-80 bg-white rounded-lg shadow-md overflow-hidden"
+      className="flex flex-col bg-white rounded-lg shadow-md overflow-hidden"
     >
       <div className={imageStyles.container}>
         {/* 스켈레톤 UI */}
@@ -66,7 +81,7 @@ function ProductCard({product}: {product: RecommendedProduct}) {
           height={200}
           src={product.image}
           alt={product.title}
-          className={imageStyles.image}
+          className={`${imageStyles.image} max-h-48`}
           style={{transition: "opacity 0.3s ease-in-out"}}
           loading="lazy"
           onLoadingComplete={handleLoadingComplete}
@@ -97,9 +112,15 @@ function ProductCard({product}: {product: RecommendedProduct}) {
               className="font-medium text-gray-900 line-clamp-2"
               dangerouslySetInnerHTML={{__html: parseBoldText(product.title)}}
             ></h3>
-            <dl>
-              <dt>{Number(product.lprice).toLocaleString()}원</dt>
+            <dl className="space-y-2">
+              <dt className="text-primary font-semibold">
+                {Number(product.lprice).toLocaleString()}&nbsp;원
+              </dt>
               <dd>{product?.brand}</dd>
+              <dd className="flex gap-1 text-sm">
+                <span>{product?.category2},</span>
+                <span>{product?.category3}</span>
+              </dd>
             </dl>
           </>
         )}
