@@ -17,13 +17,19 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 
+// hooks
+import { FieldValues } from "react-hook-form";
+
 // icons
 import { CalendarIcon } from "lucide-react";
 
 // utils
 import { cn } from "@/lib/utils";
 
-export function CalendarPopover({ form, valueKey, label }) {
+// types
+import { CompositesFormProps } from "@/lib/types/typeUi";
+
+export function CalendarPopover<T extends FieldValues>({ form, valueKey, label } : CompositesFormProps<T>) {
   return (
     <FormField
       control={form.control}
