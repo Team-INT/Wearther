@@ -3,7 +3,7 @@
 import React from "react";
 import dayjs, {Dayjs} from "dayjs";
 
-import {GetCurrentWeather} from "@/lib/service/weather";
+import {GetCurrentWeather} from "@/service/api/weather";
 
 // icons
 import {Sun, Droplets, Wind} from "lucide-react";
