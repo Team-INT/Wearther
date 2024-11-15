@@ -33,16 +33,16 @@ export const TrendInfoForm = ({onSubmit}: {onSubmit: () => void}) => {
         }}
       >
         <div className="space-y-2">
-          <SelectFormField form={recommendTrendForm} valueKey="ages" label={'연령대를 선택해주세요.'} data={AgeConst}/>
+          <SelectFormField formData={recommendTrendForm} valueKey="ages" formLabel={'연령대를 선택해주세요.'} data={AgeConst}/>
         </div>
         <div className="space-y-2">
-          <SelectFormField form={recommendTrendForm} valueKey="gender" label={'성별을 선택해주세요.'} data={GenderConst}/>
+          <SelectFormField formData={recommendTrendForm} valueKey="gender" formLabel={'성별을 선택해주세요.'} data={GenderConst}/>
         </div>
         <div className="space-y-2">
-          <SelectFormField form={recommendTrendForm} valueKey="categoryName" label={'대분류를 선택해주세요.'} data={CategoryConst}/>
+          <SelectFormField formData={recommendTrendForm} valueKey="categoryName" formLabel={'대분류를 선택해주세요.'} data={CategoryConst}/>
         </div>
         <div className="space-y-2">
-        <SelectFormField form={recommendTrendForm} valueKey="categoryParam" label={'관심있는 키워드를 선택해주세요.'} data={FavorKeywordConst}/>
+        <SelectFormField formData={recommendTrendForm} valueKey="categoryParam" formLabel={'관심있는 키워드를 선택해주세요.'} data={FavorKeywordConst}/>
         </div>
         <Button type="submit" className="w-full">
           맞춤 정보 저장하기
