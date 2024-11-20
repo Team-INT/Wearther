@@ -38,9 +38,9 @@ export default function Error({
             <span>다시 시도</span>
           </Button>
           <Button variant="outline" asChild>
-            <Link href="/mypage" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <List className="h-4 w-4" />
-              <span>목록으로</span>
+              <span>홈으로</span>
             </Link>
           </Button>
         </div>
