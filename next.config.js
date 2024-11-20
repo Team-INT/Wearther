@@ -19,7 +19,7 @@ const nextConfig = {
         source: "/auth/:path*",
         destination: isProd
           ? "https://api.yoursite.com/auth/:path*"
-          : "http://localhost:8000/:path*",
+          : `${process.env.API_BASE_URL}/:path*`,
       },
     ];
   },

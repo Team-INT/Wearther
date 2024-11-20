@@ -10,6 +10,8 @@ import {registerSchema, registerSchemaType} from "@/service/schema/auth.schema";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 
+import {_signIn} from "@/auth";
+
 export function RegisterForm() {
   const router = useRouter();
   const form = useForm<registerSchemaType>({
@@ -22,10 +24,10 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (values: any) => {
-    const response = await signIn("credentials", {
-      redirect: false,
+    const response = await _signIn("register", {
+      // redirect: false,
       ...values,
-      action: "register",
+      // action: "register",
     });
 
     if (response?.error) {
