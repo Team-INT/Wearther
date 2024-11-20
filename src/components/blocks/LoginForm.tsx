@@ -47,7 +47,7 @@ export function LoginForm<loginSchemaType>() {
                     <FormItem className="relative">
                       <FormLabel htmlFor="email">Email</FormLabel>
                       <FormControl>
-                        <Input id="email" type="email" placeholder="m@example.com" {...field} />
+                        <Input id="email" placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage className="absolute top-0 right-0 text-sm text-destructive mt-1" />
                     </FormItem>

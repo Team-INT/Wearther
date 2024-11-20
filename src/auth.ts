@@ -98,7 +98,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
   },
 });
 
-async function _signIn(type: string, body: any) {
+export async function _signIn(type: string, body: any) {
   console.log("Entering _signIn with type:", type, "and body:", body);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/${type}/email`, {
     method: "POST",

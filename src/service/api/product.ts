@@ -1,11 +1,7 @@
 export async function getProductRecommendData(query: string) {
   try {
     // 환경 변수 확인
-    if (
-      !process.env.NAVER_SHOP_BASE_URL ||
-      !process.env.NAVER_CLIENT_ID ||
-      !process.env.NAVER_CLIENT_SECRET
-    ) {
+    if (!process.env.NAVER_CLIENT_ID || !process.env.NAVER_CLIENT_SECRET) {
       throw new Error("필요한 환경 변수가 설정되지 않았습니다.");
     }
 
