@@ -33,3 +33,37 @@ export const FavorKeywordConst = [
   {label: '재킷', value: '20'},
   {label: '코트', value: '30'},
 ]
+
+export const fashionConst = [
+  "캐주얼", 
+  "포멀", 
+  "스트릿", 
+  "빈티지", 
+  "미니멀", 
+  "로맨틱", 
+  "스포티", 
+  "보헤미안", 
+  "힙합", 
+  "클래식", 
+]
+
+export const moodConst = [
+ "편안한", 
+  "세련된", 
+  "귀여운", 
+  "시크한", 
+  "화려한", 
+  "단정한", 
+  "자연스러운", 
+  "독특한", 
+  "고급스러운", 
+  "활동적인", 
+]
+
+export const shoppingMallsConst = [
+  "무신사", 
+  "에이블리", 
+  "보세", 
+  "테무", 
+  "기타"
+]
