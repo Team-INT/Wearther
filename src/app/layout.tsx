@@ -11,7 +11,10 @@ import {AuroraBackgroundProvider} from "@/components/context/AuroraBackgroundPro
 import SmoothScrollProvider from "@/components/context/SmoothScrollProvider";
 import {ThemeProvider} from "@/components/context/theme-provider";
 import {ClientProvider} from "@/components/context/ClientProvider";
-import { QueryProvider } from './../components/context/QueryProvider';
+import {QueryProvider} from "./../components/context/QueryProvider";
+
+// components
+import {Toaster} from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -43,6 +46,7 @@ export default function RootLayout({
             <ClientProvider>
               <SmoothScrollProvider />
               <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
+              <Toaster />
             </ClientProvider>
           </QueryProvider>
         </ThemeProvider>

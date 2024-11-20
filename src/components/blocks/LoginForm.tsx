@@ -46,6 +46,9 @@ export function LoginForm<loginSchemaType>() {
                   render={({field}) => (
                     <FormItem className="relative">
                       <FormLabel htmlFor="email">Email</FormLabel>
+                      <Link href="/find-email" className="ml-auto inline-block text-sm underline">
+                        Forgot your email?
+                      </Link>
                       <FormControl>
                         <Input id="email" placeholder="m@example.com" {...field} />
                       </FormControl>
@@ -63,7 +66,10 @@ export function LoginForm<loginSchemaType>() {
                     <FormItem className="relative">
                       <div className="flex items-center">
                         <FormLabel htmlFor="password">Password</FormLabel>
-                        <Link href="#" className="ml-auto inline-block text-sm underline">
+                        <Link
+                          href="/find-password"
+                          className="ml-auto inline-block text-sm underline"
+                        >
                           Forgot your password?
                         </Link>
                       </div>
