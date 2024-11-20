@@ -7,7 +7,6 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {registerSchema, registerSchemaType} from "@/service/schema/auth.schema";
-import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 
 import {_signIn} from "@/auth";
@@ -88,7 +87,12 @@ export function RegisterForm() {
                     <FormItem className="relative">
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <FormControl>
-                        <Input id="password" type="password" {...field} />
+                        <Input
+                          id="password"
+                          type="password"
+                          autoComplete="current-password"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage className="absolute top-0 right-0 text-sm text-destructive mt-1" />
                     </FormItem>
