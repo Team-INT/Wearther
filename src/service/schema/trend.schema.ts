@@ -3,9 +3,9 @@ import z from "zod";
 
 const dateSchema = z.date({
   required_error: "A date is required.",
-}).refine(val=> {
-  return val === undefined && {message: '옵션을 선택해주세요.'}
-})
+}).refine((val) => !isNaN(val.getTime()), {
+  message: "Invalid date selected.",
+});
 
 const selectSchema = z.string()
 .refine(val=> val !== '', {message: '옵션을 선택해주세요.'})
