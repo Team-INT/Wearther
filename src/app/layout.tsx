@@ -12,6 +12,7 @@ import SmoothScrollProvider from "@/components/context/SmoothScrollProvider";
 import {ThemeProvider} from "@/components/context/theme-provider";
 import {ClientProvider} from "@/components/context/ClientProvider";
 import {QueryProvider} from "./../components/context/QueryProvider";
+import AuthProvider from "@/components/context/AuthProvider";
 
 // components
 import {Toaster} from "@/components/ui/toaster";
@@ -44,9 +45,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" enableSystem={true}>
           <QueryProvider>
             <ClientProvider>
-              <SmoothScrollProvider />
-              <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
-              <Toaster />
+              <AuthProvider>
+                <SmoothScrollProvider />
+                <AuroraBackgroundProvider>{children}</AuroraBackgroundProvider>
+                <Toaster />
+              </AuthProvider>
             </ClientProvider>
           </QueryProvider>
         </ThemeProvider>

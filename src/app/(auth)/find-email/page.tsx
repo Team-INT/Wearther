@@ -99,7 +99,8 @@ export default function AccountRecoveryPage({type}: {type: "password" | "email"}
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     // 여기에 실제 계정 복구 로직을 구현합니다.
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // API 호출을 시뮬레이션합니다.
+    // API 호출을 시뮬레이션합니다.
+    await new Promise((resolve) => setTimeout(resolve, 2000)); 
     setIsSubmitting(false);
     setIsSubmitted(true);
     toast({
