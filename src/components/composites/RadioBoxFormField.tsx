@@ -34,15 +34,15 @@ export function RadioBoxFormField<T extends FieldValues>({
           <FormControl>
             <RadioGroup {...field} value={field.value} onValueChange={field.onChange}>
               <>
-              <div className="grid grid-cols-2 gap-2 mt-2">
-                {data.map((el) => (
-                  <div key={el} className="flex items-center space-x-2">
-                    <RadioGroupItem value={el} id={el} />
-                    <FormLabel htmlFor={el}>{el}</FormLabel>
-                  </div>
-                ))}
-              </div>
-              {children && children(field)}
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {data.map((el) => (
+                    <div key={el} className="flex items-center space-x-2">
+                      <RadioGroupItem value={el} id={el} />
+                      <FormLabel htmlFor={el}>{el}</FormLabel>
+                    </div>
+                  ))}
+                </div>
+                {children && children(field)}
               </>
             </RadioGroup>
             

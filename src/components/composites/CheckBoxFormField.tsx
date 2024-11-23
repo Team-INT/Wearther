@@ -24,6 +24,8 @@ export function CheckBoxFormField<T extends FieldValues>({
   const { formState } = formData
   const { errors } = formState
 
+  const watchedFields = formData.watch()
+
   return (
     <FormField
       control={formData.control}
@@ -33,22 +35,35 @@ export function CheckBoxFormField<T extends FieldValues>({
           { formLabel && <FormLabel>{formLabel}</FormLabel>}
           <FormControl>
             <div className="grid grid-cols-2 gap-2 mt-2">
-              {data.map(el => (
-                <div key={el} className="flex items-center space-x-2">
+              {
+                typeof data === 'string' ? (
                   <Checkbox
-                    id={el}
-                    checked={Array.isArray(field.value) && field.value.includes(el)}
+                    id={data}
+                    checked={!!watchedFields[data]}
                     onCheckedChange={(checked) => {
-                      const newValue = checked
-                        ? [...(Array.isArray(field.value) ? field.value : []), el]
-                        : field.value.filter((val:string) => val !== el);
-                      field.onChange(newValue);
+                      formData.setValue(data, checked as boolean);
                     }}
-                    disabled={field.value?.length >= ( maxCount ?? data.length ) && !field.value.includes(el)}
                   />
-                  <FormLabel htmlFor={el}>{el}</FormLabel>
-                </div>
-              ))}
+                )
+                : (
+                  data.map(el => (
+                    <div key={el} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={el}
+                        checked={Array.isArray(field.value) && field.value.includes(el)}
+                        onCheckedChange={(checked) => {
+                          const newValue = checked
+                            ? [...(Array.isArray(field.value) ? field.value : []), el]
+                            : field.value.filter((val:string) => val !== el);
+                          field.onChange(newValue);
+                        }}
+                        disabled={field.value?.length >= ( maxCount ?? data.length ) && !field.value.includes(el)}
+                      />
+                      <FormLabel htmlFor={el}>{el}</FormLabel>
+                    </div>
+                  ))
+                )
+              }
             </div>
           </FormControl>
           {errors[valueKey] && (

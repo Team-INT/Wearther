@@ -7,8 +7,10 @@ const useFormTransition = () => {
   const controls = useAnimation();
 
   useEffect(() => {
+    controls.set({ x: 200, opacity: 0 })
     controls.start({
-      x: step === 1 ? 0 : step === 2 ? -100 : -200,
+      x: 0,
+      opacity: 1,
       transition: {
         duration: 0.5,
         ease: "easeInOut",
