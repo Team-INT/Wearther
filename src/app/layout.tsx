@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: baseTitle,
     description: baseDescription,
-    // images: ["https://www.wearther.com/images/twitter-image.png"], // 적절한 이미지 URL 삽입
+    // images: ["https://www.wearther.com/images/twitter-image.png"],
   },
 };
 
